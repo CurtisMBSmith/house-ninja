@@ -1,0 +1,51 @@
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'maven'
+apply plugin: 'war'
+apply plugin: 'eclipse-wtp'
+
+eclipse {
+    wtp {
+        facet {
+            facet name: 'jst.web', version: '3.0'
+            facet name: 'java', version: '1.8'
+        }
+    }
+}
+
+group = 'ninja.household'
+sourceCompatibility = 1.8
+
+webAppDirName = 'WebContent'
+
+sourceSets {
+	main {
+		java {
+			srcDir 'src'
+		}
+	}
+}
+
+repositories {
+   	mavenLocal()
+   	mavenCentral()
+}
+
+version = '1.0.0'
+
+jar {
+    manifest {
+        attributes 'Implementation-Title': 'household-ninja-rs', 'Implementation-Version': version
+    }
+}
+
+dependencies {
+    compile group: 'org.apache.cxf', name: 'cxf-rt-frontend-jaxrs', version: '3.1.2'
+    compile group: 'org.apache.cxf', name: 'cxf-rt-rs-extension-providers', version: '3.1.2'
+    compile group: 'org.codehaus.jackson', name: 'jackson-jaxrs', version: '1.1.1'
+    compile group: 'commons-httpclient', name: 'commons-httpclient', version: '3.1'
+	compile group: 'org.springframework', name: 'spring-webmvc', version: '4.2.0.RELEASE'
+	testCompile group: 'junit', name: 'junit', version: '4.+'
+}
+
