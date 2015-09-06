@@ -43,9 +43,12 @@ jar {
 dependencies {
     compile group: 'org.apache.cxf', name: 'cxf-rt-frontend-jaxrs', version: '3.1.2'
     compile group: 'org.apache.cxf', name: 'cxf-rt-rs-extension-providers', version: '3.1.2'
-    compile group: 'org.codehaus.jackson', name: 'jackson-jaxrs', version: '1.1.1'
     compile group: 'commons-httpclient', name: 'commons-httpclient', version: '3.1'
 	compile group: 'org.springframework', name: 'spring-webmvc', version: '4.2.0.RELEASE'
+	compile group: 'javax.validation', name: 'validation-api', version: '1.1.0.Final' 
+    compile group: 'com.fasterxml.jackson.jaxrs', name: 'jackson-jaxrs-json-provider', version: '2.4.0'
+	compile group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jsr310', version: '2.4.0'
+	compile group: 'javax.servlet', name: 'javax.servlet-api', version: '3.1.0'
 	testCompile group: 'junit', name: 'junit', version: '4.+'
 }
 

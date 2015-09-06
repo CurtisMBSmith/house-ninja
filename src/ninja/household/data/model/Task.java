@@ -9,31 +9,31 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class Task {
 
 	@XmlElement
-	private long id;
-	
-	@XmlElement
+	private Long id;
+
+	@XmlElement(nillable = false)
 	private String description;
-	
+
 	@XmlElement
 	private boolean complete;
-	
-	@XmlElement
+
+	@XmlElement(nillable = false)
 	private Instant dueDate;
-	
+
 	public Task() { }
-	
-	public Task(long id, String desc, boolean complete, Instant dueDate) {
+
+	public Task(final long id, final String desc, final boolean complete, final Instant dueDate) {
 		this.id = id;
 		this.description = desc;
 		this.complete = complete;
 		this.dueDate = dueDate;
 	}
 
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(final Long id) {
 		this.id = id;
 	}
 
@@ -41,7 +41,7 @@ public class Task {
 		return description;
 	}
 
-	public void setDescription(String description) {
+	public void setDescription(final String description) {
 		this.description = description;
 	}
 
@@ -49,7 +49,7 @@ public class Task {
 		return complete;
 	}
 
-	public void setComplete(boolean complete) {
+	public void setComplete(final boolean complete) {
 		this.complete = complete;
 	}
 
@@ -57,8 +57,8 @@ public class Task {
 		return dueDate;
 	}
 
-	public void setDueDate(Instant dueDate) {
+	public void setDueDate(final Instant dueDate) {
 		this.dueDate = dueDate;
 	}
-	
+
 }
