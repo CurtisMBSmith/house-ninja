@@ -27,14 +27,6 @@
 	<!-- Importing jackson config -->
 	<bean name="jacksonConfig" class="ninja.household.rs.config.JacksonConfig" />
 	
-	<!-- Adding JacksonObjectMapperFactory bean to automatically detect required modules -->
-	<!-- bean id="objectMapperFactory" class="org.springframework.http.converter.json.Jackson2ObjectMapperFactoryBean" />
-	
-	<bean id="jsonProvider" class="com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider">
-	
-	</bean -->
-	
-	
   	<jaxrs:server id="restServlet" address="/rs">
   		<jaxrs:serviceBeans>
   			<!-- ref bean="helloRs"/ -->
