@@ -23,5 +23,8 @@
   "license": "None",
   "bugs": {
     "url": "https://github.com/CurtisMBSmith/house-ninja/issues"
+  },
+  "dependencies": {
+    "express": "~4.13.4"
   }
 }
