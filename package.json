@@ -2,29 +2,42 @@
   "name": "house-ninja",
   "version": "1.0.0",
   "description": "House ninja is a management system for your everyday needs - Food inventory, recipe management, meal planning, task management.",
-  "main": "index.js",
-  "directories": {
-    "example": "examples",
-    "test": "test"
-  },
+  "author": "Curtis Smith <Curtis.MBSmith@gmail.com>",
   "scripts": {
-    "test": "make test"
+    "start": "watchify components/index.js -v -t babelify -o public/js/bundle.js"
   },
   "repository": {
     "type": "git",
     "url": "git://github.com/CurtisMBSmith/house-ninja.git"
   },
-  "keywords": [
-    "hnin",
-    "house-ninja",
-    "houseninja"
-  ],
-  "author": "Curtis Smith <Curtis.MBSmith@gmail.com>",
-  "license": "None",
   "bugs": {
     "url": "https://github.com/CurtisMBSmith/house-ninja/issues"
   },
   "dependencies": {
-    "express": "~4.13.4"
+    "express": "^4.0.0",
+    "morgan": "^1.0.0",
+    "body-parser": "^1.0.0",
+    "compression": "1.0.1",
+    "static-favicon": "^1.0.1",
+    "method-override": "^1.0.0",
+    "errorhandler": "^1.0.0",
+    "babelify": "^6.3.0",
+    "jade": "^1.1.5",
+    "jquery": "^2.1.4",
+    "react": "^0.14.3",
+    "react-dom": "0.14.3",
+    "watchify": "^3.4.0",
+    "mongoose": "^4.2.8"
+  },
+  "devDependencies": {
+    "grunt": "^0.4.4",
+    "grunt-contrib-jshint": "^0.10.0",
+    "grunt-contrib-watch": "^0.6.1",
+    "grunt-concurrent": "^0.5.0",
+    "grunt-contrib-cssmin": "^0.9.0",
+    "matchdep": "^0.3.0",
+    "grunt-contrib-uglify": "^0.4.0",
+    "grunt-contrib-concat": "^0.4.0",
+    "grunt-contrib-less":"^0.11.0"
   }
 }
