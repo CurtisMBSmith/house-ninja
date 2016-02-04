@@ -1,0 +1,5 @@
+pguser=your_user
+pgpass=your_pass
+pghost=localhost
+pgport=5432
+pgschema=your_schema

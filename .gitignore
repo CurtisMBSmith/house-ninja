@@ -35,3 +35,6 @@ vendor
 
 # Sublime workspace files
 *.sublime-workspace
+
+# Environment-specific configuration files
+conf/properties/pgdb.properties
