@@ -1,4 +1,6 @@
-CREATE TABLE user (
+CREATE SCHEMA IF NOT EXISTS hnin;
+
+CREATE TABLE users (
     id              SERIAL  PRIMARY KEY,
     email           VARCHAR(255) NOT NULL,
     password        VARCHAR(255) NOT NULL,
@@ -10,7 +12,7 @@ CREATE TABLE user (
 
 CREATE TYPE granularity AS ENUM ('FINE', 'COARSE', 'USER', 'NONE');
 
-CREATE TABLE household (
+CREATE TABLE households (
     id              BIGSERIAL  PRIMARY KEY,
     name            VARCHAR(255) NOT NULL,
     type            VARCHAR(50) NOT NULL,
@@ -19,9 +21,9 @@ CREATE TABLE household (
     loc_gran        granularity  DEFAULT 'NONE'
 );
 
-CREATE TABLE task (
+CREATE TABLE tasks (
     id              BIGSERIAL  PRIMARY KEY,
-    desc            VARCHAR(150) NOT NULL,
+    description     VARCHAR(150) NOT NULL,
     due             TIMESTAMP,
     completed       TIMESTAMP,
     created_by      SERIAL,
