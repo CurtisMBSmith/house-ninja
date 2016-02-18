@@ -3,4 +3,4 @@
 
 export pgconn="postgres://${pguser}:${pgpass}@${pghost}:${pgport}/${pgschema}"
 
-node deploy/scripts/setup_db.js
+node deploy/scripts/setup_db.js -sr
