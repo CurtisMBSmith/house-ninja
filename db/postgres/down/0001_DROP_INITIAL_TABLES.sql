@@ -1,5 +1,5 @@
-DROP TABLE IF EXISTS household_users;
-DROP TABLE IF EXISTS tasks;
-DROP TABLE IF EXISTS households;
-DROP TABLE IF EXISTS users;
-DROP TYPE IF EXISTS granularity;
+DROP TABLE IF EXISTS hnin.household_users;
+DROP TABLE IF EXISTS hnin.tasks;
+DROP TABLE IF EXISTS hnin.households;
+DROP TABLE IF EXISTS hnin.users;
+DROP TYPE IF EXISTS hnin.granularity;
