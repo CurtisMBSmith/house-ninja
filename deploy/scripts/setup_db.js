@@ -65,45 +65,40 @@ function readSqlFilesFromDir(dir, targetVers, desc) {
   return sqlFiles;
 }
 
-function executeSql(dbUri, sqlFile) {
-  console.log('Executing file ' + sqlFile.name + ' on schema...');
+function executeSql(client, sqlFile) {
   fs.readFile(sqlFile.full_name, 'utf8', function(err, sql) {
     if (err) {
       throw err;
     }
 
-    pg.connect(dbUri, function(err, client, done) {
+    client.query(sql, function(err, result) {
+      console.log('Executing file ' + sqlFile.name + ' on schema...');
+
       if (err) {
+        console.log('An error occurred while executing ' + sqlFile.name + '.');
         throw err;
       }
 
-      client.query(sql, function(err, result) {
-        if (err) {
-          throw err;
-        }
-
-        console.log('SQL executed successsfully.');
-        done();
-      });
+      console.log('SQL executed successsfully.');
     });
   });
 }
 
-function executeSqlFiles(dbUri, sqlFiles) {
+function executeSqlFiles(client, sqlFiles) {
   sqlFiles.forEach(function(fileObj) {
-    executeSql(dbUri, fileObj);
+    executeSql(client, fileObj);
   });
 }
 
-function tearDownSchema(dbUri, dbScriptPath, targetVers) {
+function tearDownSchema(client, dbScriptPath, targetVers) {
   var sqlFiles = readSqlFilesFromDir(dbScriptPath + 'down/', targetVers, true);
 
   console.log('Tearing down database...');
 
-  executeSqlFiles(dbUri, sqlFiles);
+  executeSqlFiles(client, sqlFiles);
 }
 
-function deployDb(dbUri, dbScriptPath, toVers) {
+function deployDb(client, dbScriptPath, toVers) {
   var sqlFiles = readSqlFilesFromDir(dbScriptPath + 'up/', toVers, false);
 
   if (toVers) {
@@ -112,34 +107,42 @@ function deployDb(dbUri, dbScriptPath, toVers) {
     console.log('Deploying latest schema.');
   }
 
-  executeSqlFiles(dbUri, sqlFiles);
+  executeSqlFiles(client, sqlFiles);
 }
 
-function deployData(dbUri, dbScriptRoot, toVers, dataDir) {
+function deployData(client, dbScriptRoot, toVers, dataDir) {
   var sqlFiles = readSqlFilesFromDir(dbScriptRoot + 'data/' + dataDir + '/', toVers, false);
 
   console.log('Deploying data from ' + dataDir + ' directory...');
 
-  executeSqlFiles(dbUri, sqlFiles);
+  executeSqlFiles(client, sqlFiles);
 }
 
-function setUpSchema(dbUri, dbScriptPath, toVers) {
-  deployDb(dbUri, dbScriptPath, toVers);
-  deployData(dbUri, dbScriptPath, toVers, 'base');
+function setUpSchema(client, dbScriptPath, toVers) {
+  deployDb(client, dbScriptPath, toVers);
+  deployData(client, dbScriptPath, toVers, 'base');
 }
 
 function main(dbUri, prog, dbScriptPath) {
   var targetVersion = prog.version.option;
 
-  if (prog.refresh) {
-    tearDownSchema(dbUri, dbScriptPath, targetVersion);
-  }
+  pg.connect(dbUri, function(err, client, done) {
+    if (err) {
+      throw err;
+    }
 
-  setUpSchema(dbUri, dbScriptPath, targetVersion);
+    if (prog.refresh) {
+      tearDownSchema(client, dbScriptPath, targetVersion);
+    }
 
-  if (prog.sampleData) {
-    deployData(dbUri, dbScriptPath, targetVersion, 'sample');
-  }
+    setUpSchema(client, dbScriptPath, targetVersion);
+
+    if (prog.sampleData) {
+      deployData(client, dbScriptPath, targetVersion, 'sample');
+    }
+
+    done();
+  });
 }
 
 main(dbUri, program, 'db/postgres/');

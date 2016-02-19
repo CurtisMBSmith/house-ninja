@@ -2,17 +2,17 @@
 INSERT INTO users
     (id, email, password, given_name, surname)
 VALUES
-    (1, 'Curtis.MBSmith@gmail.com', 'MyPass25', Curtis, Smith);
+    (1, 'Curtis.MBSmith@gmail.com', 'MyPass25', 'Curtis', 'Smith');
 INSERT INTO users
     (id, email, password, given_name, surname)
 VALUES
-    (2, 'Liz.Snell@gmail.com', 'LizzyPass24', Liz, Snell);
+    (2, 'Liz.Snell@gmail.com', 'LizzyPass24', 'Liz', 'Snell');
 
 -- Insert households
 INSERT INTO households
     (id, name, type)
 VALUES
-    (1, 'Curtis and Liz\'s home', 'Family');
+    (1, 'Curtis and Liz''s home', 'Family');
 
 -- Insert household users
 INSERT INTO household_users
@@ -45,3 +45,5 @@ INSERT INTO tasks
     (id, description, due, completed, created_by, completed_by)
 VALUES
     (4, 'Feed the cats', now() - interval '5 hours', now() - interval '3 hours', 1, 2);
+
+COMMIT;

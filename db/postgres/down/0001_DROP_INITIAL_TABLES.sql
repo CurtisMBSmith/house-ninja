@@ -1,4 +1,5 @@
-DROP TABLE household_users;
-DROP TABLE tasks;
-DROP TABLE households;
-DROP TABLE users;
+DROP TABLE IF EXISTS household_users;
+DROP TABLE IF EXISTS tasks;
+DROP TABLE IF EXISTS households;
+DROP TABLE IF EXISTS users;
+DROP TYPE IF EXISTS granularity;
