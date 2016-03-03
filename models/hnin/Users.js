@@ -1,29 +1,23 @@
-var Sequelize = require('sequelize');
-var sequelize = new Sequelize(process.env.pgconn);
+'use strict';
 
-var User = sequelize.define('users', {
-  id: {
-    type: Sequelize.INTEGER,
-    primaryKey: true,
-  },
-  email: {
-    type: Sequelize.STRING,
-    unique: true,
-    allowNull: false,
-  },
-  password: {
-    type: Sequelize.STRING,
-    allowNull: false,
-  },
-  given_name: {
-    type: Sequelize.STRING(50),
-  },
-  surname: {
-    type: Sequelize.STRING(50),
-  },
-  inserted: {
-    type: Sequelize.DATE,
-  }
-});
+module.exports = function(sequelize, DataTypes) {
+  var User = sequelize.define('User', {
+    email: {
+      type: DataTypes.STRING,
+      unique: true,
+      allowNull: false,
+    },
+    password: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    givenName: {
+      type: DataTypes.STRING(50),
+    },
+    surname: {
+      type: DataTypes.STRING(50),
+    },
+  });
 
-module.exports.User = User;
+  return User;
+};
