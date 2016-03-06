@@ -3,4 +3,4 @@
 
 export pgconn="postgres://${pguser}:${pgpass}@${pghost}:${pgport}/${pgschema}"
 
-node $1
+node "$@"
