@@ -2,7 +2,7 @@
 var program = require('commander');
 
 var hninModels = require('../../models/hnin/index.js');
-var SampleData = require('../../test/sampledata/import_sample_data.js');
+var SampleData = require('../../data/sample/import_sample_data.js');
 var sequelize = hninModels.sequelize;
 
 // Set up the command-line interface.
