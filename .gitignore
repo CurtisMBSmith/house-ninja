@@ -38,3 +38,4 @@ vendor
 
 # Environment-specific configuration files
 conf/properties/pgdb.properties
+test/conf/testdb.properties
