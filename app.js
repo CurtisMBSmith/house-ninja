@@ -30,6 +30,8 @@ app
   .use(bodyParser())
   .use(methodOverride())
   .use(express.static(path.join(__dirname, 'public')))
+  .use('/vendor/bootstrap', express.static(path.join(__dirname, '/node_modules/bootstrap/dist/')))
+  .use('/vendor/jquery', express.static(path.join(__dirname, '/node_modules/jquery/dist/')))
   .use('/', routes.indexRouter);
 
 if (app.get('env') === 'development') {
