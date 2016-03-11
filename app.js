@@ -4,7 +4,6 @@
 
 var express        = require('express'),
     path           = require('path'),
-    mongoose       = require('mongoose'),
     logger         = require('morgan'),
     bodyParser     = require('body-parser'),
     compress       = require('compression'),
@@ -13,12 +12,6 @@ var express        = require('express'),
     errorHandler   = require('errorhandler'),
     config         = require('./config'),
     routes         = require('./routes');
-
-
-mongoose.connect(config.database.url);
-mongoose.connection.on('error', function () {
-  console.log('mongodb connection error');
-});
 
 var app = express();
 
@@ -37,7 +30,7 @@ app
   .use(bodyParser())
   .use(methodOverride())
   .use(express.static(path.join(__dirname, 'public')))
-  .use(routes.indexRouter);
+  .use('/', routes.indexRouter);
 
 if (app.get('env') === 'development') {
   app.use(errorHandler());

@@ -13,9 +13,9 @@ var indexRouter = express.Router();
 /**
  * this accepts all request methods to the `/` path
  */
+indexRouter.use('/users', controllers.UserCntrl.router);
+
 indexRouter.route('/')
   .all(controllers.index);
-indexRouter.route('/products')
-  .all(controllers.getProducts);
 
 exports.indexRouter = indexRouter;
