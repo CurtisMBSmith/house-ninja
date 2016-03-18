@@ -51,6 +51,17 @@ module.exports = function (grunt) {
         }]
       }
     },
+    babel: {
+      dist: {
+        files: [{
+          cwd: 'frontend/build/jsx/',
+          src: ['**/*.jsx'],
+          dest: 'frontend/build/js/',
+          ext: '.js',
+          expand: true
+        }]
+      }
+    },
     concat: {
       css: {
         // add your css files over here to concatenate all css files
