@@ -23,6 +23,10 @@ coverage
 # Compiled binary addons (http://nodejs.org/api/addons.html)
 build/Release
 
+# Build directories
+frontend/dist/
+frontend/build/
+
 # Dependency directory
 node_modules
 vendor

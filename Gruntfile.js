@@ -7,15 +7,56 @@ module.exports = function (grunt) {
       },
       gruntfile: 'Gruntfile.js',
       server: ['controllers/**/*.js', 'models/**/*.js', 'routes/**/*.js', 'app.js', 'config.js'],
-      client: 'public/js/**/*.js'
+      client: 'frontend/src/js/**/*.js'
+    },
+    copy: {
+      toBuild: {
+        files: [{
+          cwd: 'frontend/src/',
+          src: ['**'],
+          dest: 'frontend/build/',
+          expand: true
+        }]
+      },
+      toDist: {
+        files: [{
+          cwd: 'frontend/build/',
+          src: ['**'],
+          dest: 'frontend/dist/',
+          expand: true
+        }]
+      },
+      vendorJS: {
+        files: [{
+          expand: true,
+          src: [
+            'node_modules/jquery/dist/jquery.min.js',
+            'node_modules/react/dist/react.min.js',
+            'node_modules/bootstrap/dist/js/bootstrap.min.js'
+          ],
+          dest: 'frontend/build/vendor/js/',
+          flatten: true,
+          filter: 'isFile'
+        }]
+      },
+      vendorCSS: {
+        files: [{
+          expand: true,
+          src: [
+            'node_modules/bootstrap/dist/css/bootstrap.min.css'
+          ],
+          dest: 'frontend/build/vendor/css/',
+          flatten: true,
+          filter: 'isFile'
+        }]
+      }
     },
     concat: {
       css: {
         // add your css files over here to concatenate all css files
         // let's save our site users some bandwith
         files: {
-          src: ['public/vendor/bootstrap/dist/css/bootstrap.min.css', 'public/css/styles.min.css'],
-          dest: 'public/css/app.styles.min.css'
+          'frontend/build/css/app.styles.min.css': ['node_modules/bootstrap/dist/css/bootstrap.min.css', 'frontend/dist/css/styles.min.css'],
         }
       }
     },
@@ -27,16 +68,16 @@ module.exports = function (grunt) {
       },
       target: {
         // add your js files over here to minify them into one javascript source file
-        'public/js/app.min.js': ['public/vendor/jquery/dist/jquery.min.js', 'public/vendor/bootstrap/dist/js/bootstrap.min.js', 'public/js/main.js']
+        'frontend/dist/js/app.min.js': ['node_modules/jquery/dist/jquery.min.js', 'node_modules/bootstrap/dist/js/bootstrap.min.js', 'public/js/main.js']
       }
     },
     less: {
       src: {
         files: [{
           expand: true,
-          cwd: 'public/less',
+          cwd: 'frontend/src/less',
           src: '**/*.less',
-          dest: 'public/css',
+          dest: 'frontend/src/less/dist',
           ext: '.css'
         }]
       }
@@ -45,16 +86,16 @@ module.exports = function (grunt) {
       src: {
         files: [{
           expand: true,
-          cwd: 'public/css',
+          cwd: 'frontend/build/css',
           src: '**/*.css',
-          dest: 'public/css',
+          dest: 'frontend/build/css',
           ext: '.min.css'
         }]
       }
     },
     watch: {
       all: {
-        files: ['public/**/*', 'views/**', '!**/node_modules/**', '!public/vendor/**/*', '!**/*.min.*'],
+        files: ['frontend/src/**/*', 'views/**', '!**/node_modules/**', '!frontend/dist/**/*', '!**/*.min.*'],
         options: {
           livereload: 3006
         }
@@ -64,15 +105,15 @@ module.exports = function (grunt) {
         tasks: 'jshint:gruntfile'
       },
       scripts: {
-        files: 'public/js/**/*.js',
-        tasks: ['jshint:client', 'uglify']
+        files: 'frontend/src/js/**/*.js',
+        tasks: ['jshint:client']
       },
       server: {
         files: '<%= jshint.server %>',
         tasks: 'jshint:server'
       },
       less: {
-        files: ['public/less/**/*.less'],
+        files: ['frontend/src/less/**/*.less'],
         tasks: ['less', 'cssmin', 'concat:css']
       }
     },
@@ -88,5 +129,8 @@ module.exports = function (grunt) {
 
   // Load the tasks
   require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks);
-  grunt.registerTask('default', ['jshint', 'uglify', 'less', 'cssmin', 'concat:css', 'concurrent']);
+  grunt.registerTask('default', ['jshint', 'copy:toBuild', 'copy:vendorJS', 'copy:vendorCSS', 'copy:toDist']);
+  grunt.registerTask('production', ['jshint', 'uglify', 'less', 'cssmin', 'concat:css', 'concurrent']);
+  // grunt.registerTask('copyToBuild', ['copyToBuild']);
+
 };
