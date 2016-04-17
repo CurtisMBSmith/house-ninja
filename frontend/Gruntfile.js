@@ -1,28 +1,22 @@
 module.exports = function (grunt) {
   var config = {
-    jshint: {
-      options: {
-        ignores: ['node_modules/**', 'public/vendor/**', '**/*.min.js'],
-        jshintrc: '.jshintrc'
-      },
-      gruntfile: 'Gruntfile.js',
-      server: ['controllers/**/*.js', 'models/**/*.js', 'routes/**/*.js', 'app.js', 'config.js'],
-      client: 'frontend/src/js/**/*.js'
+    clean: {
+      build: ['build/', 'dist/']
     },
     copy: {
       toBuild: {
         files: [{
-          cwd: 'frontend/src/',
+          cwd: 'src/',
           src: ['**'],
-          dest: 'frontend/build/',
+          dest: 'build/',
           expand: true
         }]
       },
       toDist: {
         files: [{
-          cwd: 'frontend/build/',
+          cwd: 'build/',
           src: ['css/*', 'css/**/*', 'img/*', 'img/**/*', 'vendor/*', 'vendor/**/*'],
-          dest: 'frontend/dist/',
+          dest: 'dist/',
           expand: true
         }]
       },
@@ -34,7 +28,7 @@ module.exports = function (grunt) {
             'node_modules/react/dist/react.min.js',
             'node_modules/bootstrap/dist/js/bootstrap.min.js'
           ],
-          dest: 'frontend/build/vendor/js/',
+          dest: 'build/vendor/js/',
           flatten: true,
           filter: 'isFile'
         }]
@@ -45,7 +39,7 @@ module.exports = function (grunt) {
           src: [
             'node_modules/bootstrap/dist/css/bootstrap.min.css'
           ],
-          dest: 'frontend/build/vendor/css/',
+          dest: 'build/vendor/css/',
           flatten: true,
           filter: 'isFile'
         }]
@@ -54,21 +48,29 @@ module.exports = function (grunt) {
     babel: {
       dist: {
         files: [{
-          cwd: 'frontend/build/jsx/',
+          cwd: 'build/jsx/',
           src: ['**/*.jsx'],
-          dest: 'frontend/build/js/',
+          dest: 'build/js/',
           ext: '.js',
           expand: true
         }]
       }
     },
     browserify: {
-      dist: {
-        files: [{
-          cwd: 'frontend/build/js',
-          src: ['**/*.js'],
-          dest: 'frontend/dist/js/app.js'
-        }]
+      vendor: {
+        src: [],
+        dest: 'dist/vendor/js/vendor.js',
+        options: {
+          require: ['jquery']
+        }
+      },
+      client: {
+        src: ['build/**/*.jsx'],
+        dest: 'dist/js/app.js',
+        options: {
+          transform: ['babelify'],
+          external: ['jquery']
+        }
       }
     },
     concat: {
@@ -113,43 +115,13 @@ module.exports = function (grunt) {
         }]
       }
     },
-    watch: {
-      all: {
-        files: ['frontend/src/**/*', 'views/**', '!**/node_modules/**', '!frontend/dist/**/*', '!**/*.min.*'],
-        options: {
-          livereload: 3006
-        }
-      },
-      gruntfile: {
-        files: 'Gruntfile.js',
-        tasks: 'jshint:gruntfile'
-      },
-      scripts: {
-        files: 'frontend/src/js/**/*.js',
-        tasks: ['jshint:client']
-      },
-      server: {
-        files: '<%= jshint.server %>',
-        tasks: 'jshint:server'
-      },
-      less: {
-        files: ['frontend/src/less/**/*.less'],
-        tasks: ['less', 'cssmin', 'concat:css']
-      }
-    },
-    concurrent: {
-      tasks: ['watch'],
-      options: {
-        logConcurrentOutput: true
-      }
-    }
   };
 
   grunt.initConfig(config);
 
   // Load the tasks
   require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks);
-  grunt.registerTask('default', ['jshint', 'copy:toBuild', 'copy:vendorJS', 'copy:vendorCSS', 'babel', 'browserify', 'copy:toDist']);
-  grunt.registerTask('production', ['jshint', 'uglify', 'less', 'cssmin', 'concat:css', 'concurrent']);
+  grunt.registerTask('default', ['clean:build', 'copy:toBuild', /*'babel',*/ 'browserify', 'copy:toDist']);
+  grunt.registerTask('production', ['uglify', 'less', 'cssmin', 'concat:css', 'concurrent']);
 
 };
