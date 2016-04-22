@@ -1,6 +1,7 @@
 import React from 'react';
 import LinkedStateMixin from 'react-addons-linked-state-mixin';
 import ReactMixin from 'react-mixin';
+import AuthSvc from '../services/AuthService.jsx';
 
 export default class Login extends React.Component {
   constructor() {
@@ -13,6 +14,11 @@ export default class Login extends React.Component {
 
   login(e) {
     e.preventDefault();
+    AuthSvc.login(this.state.user, this.state.password)
+      .catch(function(err) {
+        alert('An error occurred while logging in.');
+        console.log('Login error: ' + err.response, err);
+      });
   }
 
   render() {
