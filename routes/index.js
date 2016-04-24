@@ -1,21 +1,31 @@
-/**
- * Module dependencies
- */
 var express = require('express'),
-    controllers = require('../controllers');
+    controllers = require('../controllers'),
+    jwt = require('express-jwt');
+
+var rootRouter = express.Router();
 
 /**
- * the new Router exposed in express 4
- * the indexRouter handles all requests to the `/` path
+ * Holds any routes that should be excluded from authentication.
  */
-var indexRouter = express.Router();
+var excluded = [
+  '/',
+  '/js/*',
+  '/css/*',
+  '/vendor/*',
+  '/users/create',
+  '/users/authenticate',
+  ];
 
 /**
- * this accepts all request methods to the `/` path
+ * Apply authentication middleware.
  */
-indexRouter.use('/users', controllers.UserCntrl.router);
+rootRouter.use(jwt({secret: 'some_secret'})
+    .unless({path: excluded }));
 
-indexRouter.route('/')
+rootRouter.use('/users', controllers.UserCntrl.router);
+
+rootRouter
+  .route('/')
   .all(controllers.index);
 
-exports.indexRouter = indexRouter;
+exports.rootRouter = rootRouter;

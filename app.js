@@ -30,7 +30,8 @@ app
   .use(bodyParser())
   .use(methodOverride())
   .use(express.static(path.join(__dirname, 'frontend/dist')))
-  .use('/', routes.indexRouter);
+  .use('/', routes.rootRouter)
+  ;
 
 if (app.get('env') === 'development') {
   app.use(errorHandler());

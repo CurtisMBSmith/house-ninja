@@ -1,7 +1,8 @@
 module.exports = function (grunt) {
   var config = {
     clean: {
-      build: ['build/', 'dist/']
+      build: ['build/'],
+      dist: ['dist/']
     },
     copy: {
       toBuild: {
@@ -75,8 +76,6 @@ module.exports = function (grunt) {
     },
     concat: {
       css: {
-        // add your css files over here to concatenate all css files
-        // let's save our site users some bandwith
         files: {
           'frontend/build/css/app.styles.min.css': ['node_modules/bootstrap/dist/css/bootstrap.min.css', 'frontend/dist/css/styles.min.css'],
         }
@@ -89,7 +88,6 @@ module.exports = function (grunt) {
         }
       },
       target: {
-        // add your js files over here to minify them into one javascript source file
         'frontend/dist/js/app.min.js': ['node_modules/jquery/dist/jquery.min.js', 'node_modules/bootstrap/dist/js/bootstrap.min.js', 'public/js/main.js']
       }
     },
@@ -115,13 +113,18 @@ module.exports = function (grunt) {
         }]
       }
     },
+    watch: {
+      files: ['src/**/*.js', 'src/**/*.jsx'],
+      tasks: ['dev']
+    }
   };
 
   grunt.initConfig(config);
 
   // Load the tasks
   require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks);
-  grunt.registerTask('default', ['clean:build', 'copy:toBuild', /*'babel',*/ 'browserify', 'copy:toDist']);
+  grunt.registerTask('default', ['dev']);
+  grunt.registerTask('dev', ['clean:build', 'copy:toBuild', 'clean:dist', 'browserify', 'copy:toDist']);
   grunt.registerTask('production', ['uglify', 'less', 'cssmin', 'concat:css', 'concurrent']);
 
 };

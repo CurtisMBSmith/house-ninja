@@ -1,5 +1,7 @@
-var express = require('express');
-var db = require('../models/hnin/index.js');
+var express = require('express'),
+    jwt = require('jsonwebtoken'),
+    db = require('../models/hnin/index.js');
+
 var router = express.Router({mergeParams: true});
 var UserModel = db.User;
 
@@ -10,10 +12,23 @@ function extractUserDetails(req) {
   };
 }
 
+/**
+ * Creates an authentication token for the uer.
+ */
+function createAuthenticationToken(userRecord) {
+  // Copy the user to a new object containing any relevant pieces
+  // of information from the db object because the db object
+  // contains a circular reference and doesn't serialize to JSON nicely.
+  var user = {
+    user_id: userRecord.get('id')
+  };
+
+  return jwt.sign(user, 'some_secret');
+}
+
 router.route('/create').post(function(req, res) {
   res.set('Content-Type', 'application/json');
 
-  // res.send(productList);
   res.send('User Created');
 });
 
@@ -32,10 +47,9 @@ router.route('/authenticate').post(function(req, res) {
       return;
     }
     console.log(user.get('email') + ' authenticated.');
-    res.send({user_id: user.get('id')});
+    res.send({id_token: createAuthenticationToken(user)});
   });
 
 });
-
 
 exports.router = router;
