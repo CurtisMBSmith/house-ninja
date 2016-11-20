@@ -1,4 +1,4 @@
-import BASE_URL from './BaseResources.jsx';
+import BASE_URL from './BaseResources.js';
 
 export default {
   LOGIN_URL: BASE_URL + 'users/authenticate',
