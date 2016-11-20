@@ -10,7 +10,7 @@ let store = createStore(app);
 
 render(
   <Provider store={store}>
-    <Application history={hashHistory} />
+    <Application />
   </Provider>,
   document.getElementById('content')
 );

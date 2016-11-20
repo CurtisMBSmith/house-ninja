@@ -10,7 +10,7 @@ var UserCntrl = require('./UserController.js');
 exports.index = function(req, res) {
     res.set('Content-Type', 'text/html');
 
-    fs.readFile(__dirname + '/../views/grid.html', function(err, data) {
+    fs.readFile(__dirname + '/../views/index.html', function(err, data) {
         if (err) {
             console.log('err: ' + err);
             res.send('<html><head/><body>empty: ' + __dirname + '</body></html>');
