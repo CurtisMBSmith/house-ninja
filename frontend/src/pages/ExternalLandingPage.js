@@ -1,9 +1,10 @@
 import React from 'react';
+import LoginBox from '../containers/LoginBox';
 
 const ExternalLandingPage = () => {
   return (
   <div>
-    <h1>ExternalLandingPage</h1>
+    <LoginBox />
   </div>
 )};
 

@@ -18,7 +18,7 @@ export default class LoginForm extends Component {
           if (!email.validity.valid || !password.validity.valid) {
             return;
           }
-          this.props.onLogIn("authToken", email.value);
+          this.props.onLogIn("authToken", email.value, () => { console.log("Login callback.") } );
           e.preventDefault();
         }}>Log In</button>
         <button type="button" >Forgot Password?</button>
