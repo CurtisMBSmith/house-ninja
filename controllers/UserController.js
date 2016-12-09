@@ -6,6 +6,7 @@ var router = express.Router({mergeParams: true});
 var UserModel = db.User;
 
 function extractUserDetails(req) {
+  console.log(req.body);
   return {
     email: req.body.username,
     password: req.body.password
@@ -35,6 +36,7 @@ router.route('/create').post(function(req, res) {
 router.route('/authenticate').post(function(req, res) {
   res.set('Content-Type', 'application/json');
   var userDetails = extractUserDetails(req);
+  console.log(userDetails);
 
   UserModel.findOne({
     where: {
@@ -43,7 +45,11 @@ router.route('/authenticate').post(function(req, res) {
     }
   }).then(function (user) {
     if (!user) {
-      res.status(430).send('Invalid username or password');
+
+      res.status(430).send({
+        err: 'Invalid username or password.',
+        isError: true
+      });
       return;
     }
     console.log(user.get('email') + ' authenticated.');

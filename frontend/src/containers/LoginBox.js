@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { logIn } from '../actions';
+import { doLogIn } from '../actions';
 import LoginForm from '../components/LoginForm';
 
 class LoginBox extends Component {
@@ -14,14 +14,16 @@ class LoginBox extends Component {
 }
 
 const mapStateToProps = (state) => {
-  return { };
+  return {
+    loginInProgress: state.auth.login_in_prog,
+    loginErr: state.auth.login_err
+  };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onLogIn: (userAuth, email, callback) => {
-      callback();
-      dispatch(logIn(userAuth, email));
+    onLogIn: (email, password) => {
+      dispatch(doLogIn(email, password));
     }
   };
 };

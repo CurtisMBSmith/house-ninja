@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { logIn, logOut } from '../actions';
+import { doLogIn, logOut } from '../actions';
 import UserPanel from '../components/UserPanel';
 import LoginForm from '../components/LoginForm';
 
@@ -25,11 +25,11 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onLogIn: (userAuth, email) => {
-      dispatch(logIn(userAuth, email));
+    logIn: (email, password) => {
+      dispatch(doLogIn(userAuth, email));
     },
-    onLogOut: (userAuth) => {
-      dispatch(logOut(userAuth));
+    onLogOut: () => {
+      dispatch(logOut());
     }
   };
 };

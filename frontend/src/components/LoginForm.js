@@ -18,13 +18,22 @@ export default class LoginForm extends Component {
           if (!email.validity.valid || !password.validity.valid) {
             return;
           }
-          this.props.onLogIn("authToken", email.value, () => { console.log("Login callback.") } );
+          this.props.onLogIn(email.value, password.value);
           e.preventDefault();
         }}>Log In</button>
         <button type="button" >Forgot Password?</button>
-
+        <p className="loginStatus">{this.statusText()}</p>
      </form>
     );
   };
 
+  statusText() {
+    if (this.props.loginInProgress === true) {
+      return 'Logging in...';
+    } else if (this.props.loginErr) {
+      return this.props.loginErr;
+    }
+
+    return '';
+  }
 }
