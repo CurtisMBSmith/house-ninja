@@ -13,6 +13,7 @@ import {
 // }
 
 export const logOut = () => {
+  localStorage.removeItem('id_token');
   return {
     type: LOGOUT_USER
   };
@@ -32,6 +33,8 @@ export const loginErr = (err) => {
 };
 
 export const authSuccess = (authToken, email) => {
+  localStorage.setItem('id_token', authToken);
+
   return {
     type: LOGIN_USER,
     authToken,

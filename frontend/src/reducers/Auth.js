@@ -4,7 +4,7 @@ import {
 } from '../constants/actions/LoginActionTypes';
 
 const initialState = {
-  logged_in:false,
+  logged_in: localStorage.getItem('id_token') ? true : false,
   login_in_prog: false,
   login_err: null
 };
@@ -15,7 +15,6 @@ const login = (state = initialState, action) => {
   }
 
   return Object.assign({}, state, {
-    user_auth: action.authToken,
     email: action.email,
     logged_in: true,
     login_in_prog: false
