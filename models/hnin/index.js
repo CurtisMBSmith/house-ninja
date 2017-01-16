@@ -7,7 +7,8 @@ var modelNames = [
   'User',
   'Task',
   'Household',
-  'HouseholdUser'
+  'HouseholdUser',
+  'Session'
 ];
 
 modelNames.forEach(function(model) {

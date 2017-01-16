@@ -1,6 +1,6 @@
 var express = require('express'),
-    controllers = require('../controllers'),
-    jwt = require('express-jwt');
+    controllers = require('../controllers');
+    // jwt = require('express-jwt');
 
 var rootRouter = express.Router();
 
@@ -19,8 +19,8 @@ var excluded = [
 /**
  * Apply authentication middleware.
  */
-rootRouter.use(jwt({secret: 'some_secret'})
-    .unless({path: excluded }));
+// rootRouter.use(jwt({secret: 'some_secret'})
+    // .unless({path: excluded }));
 
 rootRouter.use('/users', controllers.UserCntrl.router);
 

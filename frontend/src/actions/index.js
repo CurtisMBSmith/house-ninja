@@ -3,19 +3,31 @@ import {
   LOGIN_ERR, LOGIN_IN_PROG
 } from '../constants/actions/LoginActionTypes';
 
-// function fetchPosts(subreddit) {
-//   return dispatch => {
-//     dispatch(requestPosts(subreddit))
-//     return fetch(`http://www.reddit.com/r/${subreddit}.json`)
-//       .then(response => response.json())
-//       .then(json => dispatch(receivePosts(subreddit, json)))
-//   }
-// }
-
 export const logOut = () => {
-  localStorage.removeItem('id_token');
   return {
     type: LOGOUT_USER
+  };
+};
+
+export const doLogOut = () => {
+  return dispatch => {
+    var headers = new Headers();
+
+    return fetch('http://localhost:3000/users/destroy', {
+      method: 'put',
+      credentials: 'same-origin',
+      headers
+    })
+    .then(resp => {
+      if (resp.status !== 204) {
+        console.log('Logout failed with code ' + resp.status);
+        dispatch(logOut());
+      } else {
+        console.log('Logout successful.');
+        dispatch(logOut());
+      }
+    })
+    .catch(err => console.log(err.status + ': ' + err.statusText));
   };
 };
 
@@ -32,13 +44,10 @@ export const loginErr = (err) => {
   };
 };
 
-export const authSuccess = (authToken, email) => {
-  localStorage.setItem('id_token', authToken);
-
+export const authSuccess = (display_name) => {
   return {
     type: LOGIN_USER,
-    authToken,
-    email
+    display_name
   };
 };
 
@@ -48,23 +57,47 @@ export const doLogIn = (email, password) => {
     var headers = new Headers();
     headers.append('Content-Type', 'application/json');
 
-    return fetch('http://localhost:3000/users/authenticate', {
-      method: 'post',
-      headers,
-      body: JSON.stringify({
+    var jsonBody = JSON.stringify({});
+    if (email && password) {
+      jsonBody = JSON.stringify({
         username: email,
         password
-      })
+      });
+    }
+
+    return fetch('http://localhost:3000/users/authenticate', {
+      method: 'post',
+      credentials: 'same-origin',
+      headers,
+      body: jsonBody
     })
     .then(resp => resp.json())
     .then(json => {
       if (json.isError) {
         dispatch(loginErr(json.err));
       } else {
-        dispatch(authSuccess(json.id_token, email));
+        dispatch(authSuccess(json.display_name));
       }
     })
     .catch(err => dispatch(loginErr(err.status + ': ' + err.statusText)));
   };
 
+};
+
+export const getUserDetails = () => {
+  return dispatch => {
+    var headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+
+    fetch('http://localhost:3000/users/details', {
+      method: 'get',
+      credentials: 'same-origin',
+      headers
+    })
+    .then(resp => resp.json())
+    .then(json => {
+      dispatch(authSuccess(json.display_name));
+    })
+    .catch(err => console.log('Failed to fetch user details: ' + err));
+  };
 };

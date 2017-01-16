@@ -4,9 +4,10 @@ import {
 } from '../constants/actions/LoginActionTypes';
 
 const initialState = {
-  logged_in: localStorage.getItem('id_token') ? true : false,
+  logged_in: false,
   login_in_prog: false,
-  login_err: null
+  login_err: null,
+  display_name: null,
 };
 
 const login = (state = initialState, action) => {
@@ -15,7 +16,7 @@ const login = (state = initialState, action) => {
   }
 
   return Object.assign({}, state, {
-    email: action.email,
+    display_name: action.display_name,
     logged_in: true,
     login_in_prog: false
   });

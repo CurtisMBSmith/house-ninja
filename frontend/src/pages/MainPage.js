@@ -1,9 +1,10 @@
 import React from 'react';
+import UserBox from '../containers/UserBox';
 
 const MainApp = () => {
   return (
   <div>
-    <h1>Logged in landing page</h1>
+    <UserBox />
   </div>
 )};
 
