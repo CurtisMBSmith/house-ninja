@@ -1,11 +1,15 @@
 import React from 'react';
-import UserBox from '../containers/UserBox';
+import PageHeader from '../containers/PageHeader';
+// import Dashboard from '../containers/Dashboard';
 
-const MainApp = () => {
+const MainPage = () => {
   return (
   <div>
-    <UserBox />
+    <PageHeader />
+
   </div>
 )};
 
-export default MainApp;
+//      <Dashboard />
+
+export default MainPage;

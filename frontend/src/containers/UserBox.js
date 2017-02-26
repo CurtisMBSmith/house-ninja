@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { doLogIn, doLogOut } from '../actions';
 import UserPanel from '../components/UserPanel';
 import LoginForm from '../components/LoginForm';
+import '../styles/components/UserBox.scss';
 
 class UserBox extends Component {
   render() {

@@ -7,50 +7,36 @@ import {
 
 const initialState = {
   householdCreateInProg: false,
-  household: null,
+  showHouseholdCreateForm: false,
+  household: {
+    name: 'The Smith Family',
+    id: 1
+  },
   householdCreateErr: null,
 };
 
-const login = (state = initialState, action) => {
-  if (action.type !== LOGIN_USER) {
-    return state;
-  }
-
+const householdCreateStart = (state = initialState) => {
   return Object.assign({}, state, {
-    display_name: action.display_name,
-    logged_in: true,
-    login_in_prog: false
+    householdCreateInProg: true,
+    householdCreateErr: null
   });
 };
 
-const logout = (state = initialState, action) => {
-  if (action.type !== LOGOUT_USER) {
-    return state;
-  }
-
+const householdCreateErr = (state = initialState, action) => {
   return Object.assign({}, state, {
-    user_auth: null,
-    logged_in: false,
-    login_in_prog: false
+    householdCreateErr: action.err,
   });
 };
 
-const beginLogin = (state = initialState, action) => {
-  if (action.type !== LOGIN_IN_PROG) {
-    return state;
-  }
-
+const householdRegister = (state = initialState, action) => {
   return Object.assign({}, state, {
-    login_in_prog: true,
-    login_err: null
+    household: action.household,
+    householdCreateErr: null,
+    householdCreateInProg: false
   });
 };
 
-const errorInLogin = (state = initialState, action) => {
-  if (action.type !== LOGIN_ERR) {
-    return state;
-  }
-
+const showHouseholdForm = (state = initialState, action) => {
   return Object.assign({}, state, {
     login_in_prog: false,
     login_err: action.login_err
@@ -62,11 +48,11 @@ const household = (state = initialState, action) => {
     case HOUSEHOLD_CREATE_START:
       return householdCreateStart(state, action);
     case HOUSEHOLD_CREATE_ERR:
-      return logout(state, action);
+      return householdCreateErr(state, action);
     case HOUSEHOLD_REGISTER:
-      return beginLogin(state, action);
+      return householdRegister(state, action);
     case HOUSEHOLD_CREATE_SHOW_FORM:
-      return errorInLogin(state, action);
+      return showHouseholdForm(state, action);
     default:
       return state;
   }

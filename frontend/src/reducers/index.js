@@ -4,6 +4,7 @@ import { household } from './Household';
 
 const app = combineReducers({
   auth,
+  household
 });
 
 export default app;
