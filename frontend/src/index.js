@@ -5,8 +5,8 @@ import React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
-import { getUserDetails } from './actions';
-import Application from './components/Application';
+import { getUserDetails } from './actions/user';
+import Application from './components/composite/app/Application';
 import app from './reducers';
 
 const loggerMiddleware = createLogger();

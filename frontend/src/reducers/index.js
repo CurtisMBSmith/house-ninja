@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
-import { auth } from './Auth';
-import { household } from './Household';
+import { auth } from './user/Auth';
+import { household } from './household/Household';
 
 const app = combineReducers({
   auth,

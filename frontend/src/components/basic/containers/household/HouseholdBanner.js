@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import '../styles/components/HouseholdBanner.scss';
+import './HouseholdBanner.scss';
 
 export default class HouseholdBanner extends Component {
   render() {

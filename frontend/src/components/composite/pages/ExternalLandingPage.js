@@ -1,10 +1,10 @@
 import React from 'react';
-import LoginBox from '../containers/LoginBox';
+import LoginSignupPanel from '../panels/user/LoginSignupPanel';
 
 const ExternalLandingPage = () => {
   return (
   <div>
-    <LoginBox />
+    <LoginSignupPanel />
   </div>
 )};
 

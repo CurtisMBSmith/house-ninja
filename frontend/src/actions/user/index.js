@@ -1,7 +1,7 @@
 import {
   LOGIN_USER, LOGOUT_USER,
   LOGIN_ERR, LOGIN_IN_PROG
-} from '../constants/actions/LoginActionTypes';
+} from '../../constants/action/types/user/LoginActionTypes';
 
 export const logOut = () => {
   return {

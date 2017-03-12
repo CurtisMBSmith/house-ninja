@@ -2,12 +2,12 @@ import {
   HOUSEHOLD_CREATE_START,
   HOUSEHOLD_CREATE_ERR,
   HOUSEHOLD_REGISTER,
-  HOUSEHOLD_CREATE_SHOW_FORM
-} from '../constants/actions/HouseholdActionTypes';
+  HOUSEHOLD_SHOW_JOIN_FORM
+} from '../../constants/action/types/household/HouseholdActionTypes';
 
 const initialState = {
   householdCreateInProg: false,
-  showHouseholdCreateForm: false,
+  showHouseholdJoinForm: false,
   household: {
     name: 'The Smith Family',
     id: 1
@@ -36,10 +36,9 @@ const householdRegister = (state = initialState, action) => {
   });
 };
 
-const showHouseholdForm = (state = initialState, action) => {
+const showHouseholdJoinForm = (state = initialState, action) => {
   return Object.assign({}, state, {
-    login_in_prog: false,
-    login_err: action.login_err
+    showHouseholdJoinForm: true
   });
 };
 
@@ -51,8 +50,8 @@ const household = (state = initialState, action) => {
       return householdCreateErr(state, action);
     case HOUSEHOLD_REGISTER:
       return householdRegister(state, action);
-    case HOUSEHOLD_CREATE_SHOW_FORM:
-      return showHouseholdForm(state, action);
+    case HOUSEHOLD_SHOW_JOIN_FORM:
+      return showHouseholdJoinForm(state, action);
     default:
       return state;
   }
