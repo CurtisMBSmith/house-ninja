@@ -1,26 +1,3 @@
-// import React, { Component, PropTypes } from 'react';
-
-// class UserDetailsPanel extends Component {
-//   render() {
-//     return (
-//       <div id="userDetailsPanel">
-//         <p id="welcomeMsg">Welcome, {this.props.displayName}!</p>
-//         <a href="#" onClick={e => {
-//           e.preventDefault();
-//           this.props.onLogOut();
-//         }}>Logout</a>
-//       </div>
-//     );
-//   }
-// }
-
-// UserDetailsPanel.propTypes = {
-//   displayName: PropTypes.string.isRequired,
-//   onLogOut: PropTypes.func.isRequired
-// }
-
-// export default UserDetailsPanel;
-
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { doLogIn, doLogOut } from '../../../../actions/user/';
