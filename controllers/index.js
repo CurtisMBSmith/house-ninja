@@ -1,11 +1,6 @@
-/**
- * do something with the user model
- * var User = require('../models/user');
- */
-
-// var express = require('express');
 var fs = require('fs');
 var UserCntrl = require('./UserController.js');
+var HouseholdCntrl = require('./HouseholdController.js');
 
 exports.index = function(req, res) {
     res.set('Content-Type', 'text/html');
@@ -13,7 +8,8 @@ exports.index = function(req, res) {
     fs.readFile(__dirname + '/../views/index.html', function(err, data) {
         if (err) {
             console.log('err: ' + err);
-            res.send('<html><head/><body>empty: ' + __dirname + '</body></html>');
+            res.status(404);
+            res.send('<html><head/><body>File not found.</body></html>');
             return;
         }
 
@@ -22,3 +18,4 @@ exports.index = function(req, res) {
 };
 
 exports.UserCntrl = UserCntrl;
+exports.HouseholdCntrl = HouseholdCntrl;

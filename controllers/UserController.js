@@ -106,3 +106,4 @@ router.route('/details').get(function(req1, res1) {
 });
 
 exports.router = router;
+exports.validateSession = validateSession;
