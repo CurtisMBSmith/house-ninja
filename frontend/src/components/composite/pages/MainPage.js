@@ -1,17 +1,15 @@
 import React from 'react';
 import PageHeader from '../panels/PageHeader';
-// import Dashboard from '../containers/Dashboard';
+import DashPanel from '../panels/DashPanel';
 
 const MainPage = () => {
   return (
   <div>
     <PageHeader />
     <div id="content">
-
+      <DashPanel />
     </div>
   </div>
 )};
-
-        // <Dashboard />
 
 export default MainPage;

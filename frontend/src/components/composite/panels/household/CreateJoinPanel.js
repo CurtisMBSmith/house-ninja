@@ -1,23 +1,23 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import HouseholdCreateForm from '../../basic/forms/household/HouseholdCreateForm';
-import HouseholdJoinForm from '../../basic/forms/household/HouseholdJoinForm';
+import HouseholdCreateForm from '../../../basic/forms/household/HouseholdCreateForm';
+import HouseholdJoinForm from '../../../basic/forms/household/HouseholdJoinForm';
 import { createHousehold, joinHousehold, showJoinForm, showCreateForm } from '../../../../actions/household';
 
-export default class CreateJoinPanel extends Component {
+class CreateJoinPanel extends Component {
   render() {
     return (
       <div className="householdCreateJoinPanel" >
         <div className="householdCreateTab">
           <a href="#" onClick={e=> {
             e.preventDefault();
-            this.props.showCreateForm();
+            this.props.toggleCreateForm();
           }} >Create</a>
         </div>
         <div className="householdJoinTab">
           <a href="#" onClick={e=> {
             e.preventDefault();
-            this.props.showJoinForm();
+            this.props.toggleJoinForm();
           }} >Join</a>
         </div>
         {this.props.showJoinForm ? <HouseholdJoinForm /> : <HouseholdCreateForm />}
@@ -37,8 +37,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    showCreateForm: () => dispatch(showCreateForm()),
-    showJoinForm: () => dispatch(showJoinForm()),
+    toggleCreateForm: () => dispatch(showCreateForm()),
+    toggleJoinForm: () => dispatch(showJoinForm()),
     createHousehold: (name) => dispatch(createHousehold(name)),
     joinHousehold: (code) => dispatch(joinHousehold(code))
   };

@@ -10,11 +10,11 @@ const initialState = {
   createInProg: false,
   joinInProg: false,
   showJoinForm: false,
-  household: {
-    name: 'The Smith Family',
-    id: 1
-  },
-  householdCreateErr: null,
+  household: null, //{
+    // name: 'The Smith Family',
+    // id: 1
+  // },
+  householdCreateErr: null
 };
 
 const householdCreateStart = (state = initialState) => {
