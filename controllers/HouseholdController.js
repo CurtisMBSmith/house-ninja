@@ -19,13 +19,13 @@ router.route('/details').get(function(req1, res1) {
         }
       }]
     }).then(function (household) {
-      if (!household) {
+      if (!household || household.length === 0) {
         res.status(404).send({
           err: 'No household found'
         });
       }
 
-      res.send(household);
+      res.send(household[0]);
     });
   });
 });
