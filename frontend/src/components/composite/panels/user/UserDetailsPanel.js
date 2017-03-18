@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { doLogIn, doLogOut } from '../actions';
-import UserPanel from '../components/UserPanel';
-import LoginForm from '../components/LoginForm';
+import { doLogIn, doLogOut } from '../../../../actions/user/';
+import UserDetails from '../../../basic/containers/user/UserDetails';
+import './UserDetailsPanel.scss';
 
-class UserBox extends Component {
+class UserDetailsPanel extends Component {
   render() {
     return (
       <div className="userBox">
-        <UserPanel displayName={this.props.displayName}
+        <UserDetails displayName={this.props.displayName}
           onLogOut={this.props.onLogOut} />
       </div>
     );
@@ -37,4 +37,4 @@ const mapDispatchToProps = (dispatch) => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(UserBox);
+)(UserDetailsPanel);

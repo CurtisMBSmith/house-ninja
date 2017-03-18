@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { doLogIn } from '../actions';
-import LoginForm from '../components/LoginForm';
+import { doLogIn } from '../../../../actions/user';
+import LoginForm from '../../../basic/forms/user/LoginForm';
 
-class LoginBox extends Component {
+class LoginSignupPanel extends Component {
   render() {
     return (
       <div className="loginBox" >
@@ -31,4 +31,4 @@ const mapDispatchToProps = (dispatch) => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(LoginBox);
+)(LoginSignupPanel);
