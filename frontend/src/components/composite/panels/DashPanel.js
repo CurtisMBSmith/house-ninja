@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import CreateJoinPanel from './household/CreateJoinPanel';
+import MealPlanPanel from './meal/MealPlanPanel';
 import './DashPanel.scss';
 
 class DashPanel extends Component {
@@ -8,7 +9,7 @@ class DashPanel extends Component {
     if (this.props.household !== null) {
       return (
         <div id="dash">
-          <p>Household!!!</p>
+          <MealPlanPanel />
         </div>
       );
     } else {
