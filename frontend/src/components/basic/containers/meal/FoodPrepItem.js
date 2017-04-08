@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import './FoodPrepItem.scss';
 
-export default class PlannedMeal extends Component {
+export default class FoodPrepItem extends Component {
   render() {
     return (
       <li className="prepItem">
@@ -24,7 +24,7 @@ export default class PlannedMeal extends Component {
   // TODO: Add checkbox.
 }
 
-PlannedMeal.propTypes = {
+FoodPrepItem.propTypes = {
   cookTimeMins: PropTypes.number.isRequired,
   servings: PropTypes.number.isRequired,
   desc: PropTypes.string.isRequired,

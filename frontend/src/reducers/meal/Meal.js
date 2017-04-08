@@ -14,7 +14,7 @@ const initialState = {
   plannedDays: {
     dayIndex: 0,
     days: [{
-      date: moment().startOf('day'),
+      date: moment().startOf('day').add(2, 'days'),
       plannedMeals: [{
         id: 1,
         name: 'Breakfast',
