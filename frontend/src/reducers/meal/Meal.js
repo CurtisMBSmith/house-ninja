@@ -19,6 +19,7 @@ const initialState = {
         id: 1,
         name: 'Breakfast',
         meals: [{
+          id: 1,
           desc: 'Orange Juice and Toast',
           prepMins: 5,
           external: false,
@@ -28,6 +29,7 @@ const initialState = {
             surname: 'Smith'
           }]
         }, {
+          id: 2,
           desc: 'Oatmeal',
           prepMins: 5,
           external: false,
@@ -37,6 +39,7 @@ const initialState = {
             surname: 'Smith'
           }]
         }, {
+          id: 3,
           desc: 'Bacon and Eggs',
           prepMins: 15,
           external: false,
@@ -50,6 +53,7 @@ const initialState = {
         id: 2,
         name: 'Lunch',
         meals: [{
+          id: 1,
           desc: 'Beef Stew',
           prepMins: 0,
           external: false,
@@ -63,6 +67,7 @@ const initialState = {
             surname: 'Snell'
           }]
         }, {
+          id: 2,
           desc: 'Rice Cereal',
           prepMins: 0,
           external: false,
@@ -76,6 +81,7 @@ const initialState = {
         id: 3,
         name: 'Dinner',
         meals: [{
+          id: 1,
           desc: 'Pizza',
           prepMins: 0,
           external: true,
@@ -95,16 +101,19 @@ const initialState = {
         }]
       }],
       plannedPrep: [{
+        id: 1,
         desc: 'Soup',
         servings: 6,
         cookTimeMins: 60,
         completed: true
       }, {
+        id: 2,
         desc: 'Chicken',
         servings: 5,
         cookTimeMins: 30,
         completed: false
       }, {
+        id: 3,
         desc: 'Caesar Salad',
         servings: 5,
         cookTimeMins: 15,

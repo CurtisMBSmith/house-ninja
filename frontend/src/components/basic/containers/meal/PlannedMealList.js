@@ -7,9 +7,11 @@ export default class PlannedMealList extends Component {
     return (
       <div className="plannedMealList" >
         <h3 className="mealListHeader">Meals</h3>
+        <ul>
         {
-          this.props.meals.forEach(meal => <PlannedMeal name={meal.name} meals={meal.meals} />)
+          this.props.plannedMeals.map((meal, i) => <PlannedMeal name={meal.name} meals={meal.meals} key={i} />)
         }
+        </ul>
      </div>
     );
   }

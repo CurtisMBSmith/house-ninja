@@ -7,7 +7,7 @@ class MealPlanPanel extends Component {
   render() {
     return (
       <div id="dash">
-        <FoodDayPlan plan={this.getCurrentDayPlan} />
+        <FoodDayPlan plan={this.getCurrentDayPlan()} />
       </div>
     );
   }

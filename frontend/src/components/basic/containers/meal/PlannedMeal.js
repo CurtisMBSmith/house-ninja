@@ -1,17 +1,17 @@
 import React, { Component, PropTypes } from 'react';
-import FoodPrepList from './Meal';
+import Meal from './Meal';
 import './PlannedMeal.scss';
 
 export default class PlannedMeal extends Component {
   render() {
     return (
-      <li class="meal">
-        <div class="mealName">
+      <li className="meal" key={this.props.id} >
+        <div className="mealName">
           <p>{this.props.name}</p>
         </div>
-        <div class="mealList" >
+        <div className="mealList" >
           <ul>
-            {this.props.meals.map(meal => <Meal desc={meal.desc} />)}
+            {this.props.meals.map((meal, i) => <Meal desc={meal.desc} key={i}/>)}
           </ul>
         </div>
       </li>

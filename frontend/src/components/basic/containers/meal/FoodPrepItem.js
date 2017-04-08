@@ -4,17 +4,17 @@ import './FoodPrepItem.scss';
 export default class PlannedMeal extends Component {
   render() {
     return (
-      <li class="prepItem">
-        <span class="cookTime">
+      <li className="prepItem">
+        <span className="cookTime">
           {this.props.cookTimeMins}
         </span>
-        <span class="servings">
+        <span className="servings">
           {this.props.servings}
         </span>
-        <span class="desc">
+        <span className="desc">
           {this.props.desc}
         </span>
-        <span class="completed">
+        <span className="completed">
           <input type="checkbox" />
         </span>
       </li>

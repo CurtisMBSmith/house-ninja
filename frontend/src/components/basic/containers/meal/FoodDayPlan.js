@@ -7,7 +7,7 @@ export default class FoodDayPlan extends Component {
   render() {
     return (
       <div className="foodDayPlan" >
-        <h2 className="dayPlanDate">{this.getDayString}</h2>
+        <h2 className="dayPlanDate">{this.getDayString()}</h2>
         <PlannedMealList plannedMeals={this.props.plan.plannedMeals} />
         <FoodPrepList plannedPrep={this.props.plan.plannedPrep} />
      </div>
@@ -16,7 +16,7 @@ export default class FoodDayPlan extends Component {
 
   getDayString() {
     // TODO
-    return this.props.plan.date;
+    return this.props.plan.date.toString();
   }
 }
 
