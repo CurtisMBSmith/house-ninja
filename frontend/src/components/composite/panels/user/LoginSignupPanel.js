@@ -1,13 +1,27 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { doLogIn } from '../../../../actions/user';
+import { doLogIn, registerUser, showUserSignupForm, showUserLoginForm } from '../../../../actions/user';
 import LoginForm from '../../../basic/forms/user/LoginForm';
+import SignupForm from '../../../basic/forms/user/SignupForm';
 
 class LoginSignupPanel extends Component {
   render() {
     return (
-      <div className="loginBox" >
-        <LoginForm onLogIn={this.props.onLogIn} />
+      <div className="loginSignupBox" >
+        <div className="logInTab">
+          <a href="#" onClick={e=> {
+            e.preventDefault();
+            this.props.showUserLoginForm();
+          }} >Log In</a>
+        </div>
+        <div className="signUpTab">
+          <a href="#" onClick={e=> {
+            e.preventDefault();
+            this.props.showUserSignupForm();
+          }} >Sign Up</a>
+        </div>
+        {this.props.showLoginForm ? <LoginForm onLogIn={this.props.onLogIn} />
+            : <SignupForm registerUser={this.props.registerUser} />}
       </div>
     );
   }
@@ -16,7 +30,8 @@ class LoginSignupPanel extends Component {
 const mapStateToProps = (state) => {
   return {
     loginInProgress: state.app.user.loginInProg,
-    loginErr: state.app.user.loginErr
+    loginErr: state.app.user.loginErr,
+    showLoginForm: state.ui.user.showLoginForm
   };
 };
 
@@ -24,6 +39,15 @@ const mapDispatchToProps = (dispatch) => {
   return {
     onLogIn: (email, password) => {
       dispatch(doLogIn(email, password));
+    },
+    registerUser: (email, password, givenName, surname) => {
+      dispatch(registerUser(email, password, givenName, surname));
+    },
+    showUserLoginForm: () => {
+      dispatch(showUserLoginForm());
+    },
+    showUserSignupForm: () => {
+      dispatch(showUserSignupForm());
     }
   };
 };

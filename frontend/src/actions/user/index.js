@@ -1,6 +1,8 @@
 import {
   REGISTER_USER, LOGOUT_USER,
   LOGIN_ERR, LOGIN_IN_PROG, LOGIN_DONE,
+  REGISTER_START, REGISTER_DONE, REGISTER_ERR,
+  SHOW_USER_SIGNUP_FORM, SHOW_USER_LOGIN_FORM
 } from '../../constants/action/types/user/LoginActionTypes';
 
 export const logOut = () => {
@@ -57,6 +59,37 @@ export const authSuccess = (user) => {
   };
 };
 
+export const regsterStart = () => {
+  return {
+    type: REGISTER_START
+  };
+};
+
+export const registerDone = () => {
+  return {
+    type: REGISTER_DONE
+  };
+};
+
+export const registerErr = (err) => {
+  return {
+    type: REGISTER_ERR,
+    err
+  };
+};
+
+export const showUserSignupForm = () => {
+  return {
+    type: SHOW_USER_SIGNUP_FORM
+  };
+};
+
+export const showUserLoginForm = () => {
+  return {
+    type: SHOW_USER_LOGIN_FORM
+  };
+};
+
 export const doLogIn = (email, password) => {
   return dispatch => {
     dispatch(beginLogin());
@@ -92,6 +125,41 @@ export const doLogIn = (email, password) => {
     });
   };
 
+};
+
+export const registerUser = (email, password, givenName, surname) => {
+  return dispatch => {
+    dispatch(regsterStart());
+    var headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+
+    var jsonBody = JSON.stringify({
+      email,
+      password,
+      givenName,
+      surname
+    });
+
+    return fetch('http://localhost:3000/users/create', {
+      method: 'post',
+      credentials: 'same-origin',
+      headers,
+      body: jsonBody
+    })
+    .then(resp => resp.json())
+    .then(json => {
+      if (json.isError) {
+        dispatch(registerErr(json.err));
+      } else {
+        dispatch(registerUser(json));
+      }
+      dispatch(registerDone());
+    })
+    .catch(err => {
+      dispatch(registerErr(err.status + ': ' + err.statusText));
+      dispatch(registerDone());
+    });
+  };
 };
 
 export const getUserDetails = () => {
