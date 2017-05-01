@@ -12,15 +12,13 @@ class PageHeader extends Component {
         <div className="pageHeader">
           <HouseholdBanner displayName={this.props.household.name}
             householdId={this.props.household.id} />
-          <UserDetailsPanel displayName={this.props.userDisplayName}
-            onLogOut={this.props.onLogOut} />
+          <UserDetailsPanel />
         </div>
       );
     } else {
       return (
         <div className="pageHeader">
-          <UserDetailsPanel displayName={this.props.userDisplayName}
-            onLogOut={this.props.onLogOut} />
+          <UserDetailsPanel />
         </div>
       );
     }
@@ -29,17 +27,12 @@ class PageHeader extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    household: state.household.household,
-    userDisplayName: state.auth.display_name
+    household: state.domain.household.household
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
-  return {
-    onLogOut: () => {
-      dispatch(doLogOut());
-    }
-  };
+  return { };
 };
 
 export default connect(

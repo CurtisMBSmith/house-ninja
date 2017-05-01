@@ -8,7 +8,18 @@ export default class FoodDayPlan extends Component {
   render() {
     return (
       <div className="foodDayPlan" >
-        <h2 className="dayPlanDate">{this.getDayString()}</h2>
+        <div className="dayPlanDate">
+          <a href="#" onClick={e => {
+            console.log(this.props);
+            e.preventDefault();
+            this.props.previousDayView();
+          }}>Previous</a>
+          <h2>{this.getDayString()}</h2>
+          <a href="#" onClick={e => {
+            e.preventDefault();
+            this.props.nextDayView();
+          }}>Next</a>
+        </div>
         <PlannedMealList plannedMeals={this.props.plan.plannedMeals} />
         <FoodPrepList plannedPrep={this.props.plan.plannedPrep} />
      </div>

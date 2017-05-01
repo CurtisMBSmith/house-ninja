@@ -18,7 +18,7 @@ class Application extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    isLoggedIn: state.auth.logged_in
+    isLoggedIn: state.domain.user.currentUser !== null
   };
 };
 

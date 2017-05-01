@@ -1,21 +1,15 @@
 import {
   HOUSEHOLD_CREATE_START,
   HOUSEHOLD_CREATE_ERR,
-  HOUSEHOLD_REGISTER,
-  HOUSEHOLD_SHOW_JOIN_FORM,
-  HOUSEHOLD_SHOW_CREATE_FORM,
   HOUSEHOLD_RETRIEVE_START,
-  HOUSEHOLD_RETRIEVE_ERR
-} from '../../constants/action/types/household/HouseholdActionTypes';
+  HOUSEHOLD_RETRIEVE_ERR,
+  HOUSEHOLD_JOIN_ERR
+} from '../../../constants/action/types/household/HouseholdActionTypes';
 
 const initialState = {
   createInProg: false,
   joinInProg: false,
-  showJoinForm: false,
-  household: null, //{
-    // name: 'The Smith Family',
-    // id: 1
-  // },
+  joinErr: null,
   createErr: null,
   retrieveInProg: false,
   retrieveErr: null
@@ -48,18 +42,9 @@ const householdRetrieveErr = (state = initialState, action) => {
   });
 };
 
-const householdRegister = (state = initialState, action) => {
+const householdJoinErr = (state = initialState, action) => {
   return Object.assign({}, state, {
-    household: action.household,
-    createErr: null,
-    createInProg: false,
-    retrieveInProg: false
-  });
-};
-
-const toggleJoinForm = (state = initialState, showForm = false) => {
-  return Object.assign({}, state, {
-    showJoinForm: showForm
+    joinErr: action.joinErr
   });
 };
 
@@ -69,19 +54,15 @@ const household = (state = initialState, action) => {
       return householdCreateStart(state, action);
     case HOUSEHOLD_CREATE_ERR:
       return householdCreateErr(state, action);
-    case HOUSEHOLD_REGISTER:
-      return householdRegister(state, action);
-    case HOUSEHOLD_SHOW_JOIN_FORM:
-      return toggleJoinForm(state, true);
-    case HOUSEHOLD_SHOW_CREATE_FORM:
-      return toggleJoinForm(state, false);
     case HOUSEHOLD_RETRIEVE_START:
       return householdRetrieveStart(state);
     case HOUSEHOLD_RETRIEVE_ERR:
       return householdRetrieveErr(state, action);
+    case HOUSEHOLD_JOIN_ERR:
+      return householdJoinErr(state, action);
     default:
       return state;
   }
 };
 
-export { household };
+export default household;

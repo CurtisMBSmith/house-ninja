@@ -29,9 +29,9 @@ class CreateJoinPanel extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    showJoinForm: state.household.showJoinForm,
-    createErr: state.household.createErr,
-    joinErr: state.household.joinErr
+    showJoinForm: state.ui.household.showJoinForm,
+    createErr: state.app.household.createErr,
+    joinErr: state.app.household.joinErr
   };
 };
 

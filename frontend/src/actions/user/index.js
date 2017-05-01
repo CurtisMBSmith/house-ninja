@@ -1,6 +1,6 @@
 import {
-  LOGIN_USER, LOGOUT_USER,
-  LOGIN_ERR, LOGIN_IN_PROG
+  REGISTER_USER, LOGOUT_USER,
+  LOGIN_ERR, LOGIN_IN_PROG, LOGIN_DONE,
 } from '../../constants/action/types/user/LoginActionTypes';
 
 export const logOut = () => {
@@ -40,14 +40,20 @@ export const beginLogin = () => {
 export const loginErr = (err) => {
   return {
     type: LOGIN_ERR,
-    login_err: err
+    loginErr: err
   };
 };
 
-export const authSuccess = (display_name) => {
+export const loginDone = () => {
   return {
-    type: LOGIN_USER,
-    display_name
+    type: LOGIN_DONE
+  };
+};
+
+export const authSuccess = (user) => {
+  return {
+    type: REGISTER_USER,
+    user
   };
 };
 
@@ -76,10 +82,14 @@ export const doLogIn = (email, password) => {
       if (json.isError) {
         dispatch(loginErr(json.err));
       } else {
-        dispatch(authSuccess(json.display_name));
+        dispatch(authSuccess(json));
       }
+      dispatch(loginDone());
     })
-    .catch(err => dispatch(loginErr(err.status + ': ' + err.statusText)));
+    .catch(err => {
+      dispatch(loginErr(err.status + ': ' + err.statusText));
+      dispatch(loginDone());
+    });
   };
 
 };
@@ -96,7 +106,8 @@ export const getUserDetails = () => {
     })
     .then(resp => resp.json())
     .then(json => {
-      dispatch(authSuccess(json.display_name));
+      dispatch(authSuccess(json));
+      dispatch(loginDone());
     })
     .catch(err => console.log('Failed to fetch user details: ' + err));
   };

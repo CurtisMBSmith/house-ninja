@@ -7,11 +7,11 @@ import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import { getUserDetails } from './actions/user';
 import Application from './components/composite/app/Application';
-import app from './reducers';
+import store from './reducers';
 
 const loggerMiddleware = createLogger();
-let store = createStore(
-  app,
+let appStore = createStore(
+  store,
   applyMiddleware(
     thunkMiddleware, // lets us dispatch() functions
     loggerMiddleware // neat middleware that logs actions
@@ -19,10 +19,10 @@ let store = createStore(
 
 // Dispatch an empty login request to pull user information
 // from the current session if one exists
-store.dispatch(getUserDetails());
+appStore.dispatch(getUserDetails());
 
 render(
-  <Provider store={store}>
+  <Provider store={appStore}>
     <Application />
   </Provider>,
   document.getElementById('content')

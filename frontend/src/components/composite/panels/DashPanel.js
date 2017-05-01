@@ -24,7 +24,7 @@ class DashPanel extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    household: state.household.household,
+    household: state.domain.household.household,
   };
 };
 

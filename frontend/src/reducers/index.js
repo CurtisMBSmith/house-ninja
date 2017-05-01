@@ -1,12 +1,12 @@
 import { combineReducers } from 'redux';
-import { auth } from './user/Auth';
-import { household } from './household/Household';
-import { mealPlan } from './meal/Meal';
+import app from './app/';
+import domain from './domain/';
+import ui from './ui/';
 
-const app = combineReducers({
-  auth,
-  household,
-  mealPlan
+const store = combineReducers({
+  app,
+  domain,
+  ui
 });
 
-export default app;
+export default store;

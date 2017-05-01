@@ -15,8 +15,8 @@ class LoginSignupPanel extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    loginInProgress: state.auth.login_in_prog,
-    loginErr: state.auth.login_err
+    loginInProgress: state.app.user.loginInProg,
+    loginErr: state.app.user.loginErr
   };
 };
 

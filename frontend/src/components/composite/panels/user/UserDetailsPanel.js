@@ -8,26 +8,25 @@ class UserDetailsPanel extends Component {
   render() {
     return (
       <div className="userBox">
-        <UserDetails displayName={this.props.displayName}
+        <UserDetails displayName={this.userDisplayName()}
           onLogOut={this.props.onLogOut} />
       </div>
     );
+  }
+
+  userDisplayName() {
+    return this.props.user.givenName + ' ' + this.props.user.surname;
   }
 }
 
 const mapStateToProps = (state) => {
   return {
-    isLoggedIn: state.auth.logged_in,
-    userAuth: state.auth.user_auth,
-    displayName: state.auth.display_name
+    user: state.domain.user.currentUser
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    logIn: (email, password) => {
-      dispatch(doLogIn(userAuth, email));
-    },
     onLogOut: () => {
       dispatch(doLogOut());
     }

@@ -98,9 +98,12 @@ router.route('/details').get(function(req1, res1) {
     UserModel.findOne({
       where: {
         id: req.session.user.id
+      },
+      attributes: {
+        exclude: ['password']
       }
     }).then(function (user) {
-      res.send({display_name: user.get('email')});
+      res.send(user);
     });
   });
 });
