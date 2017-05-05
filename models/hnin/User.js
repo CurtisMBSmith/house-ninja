@@ -20,6 +20,15 @@ module.exports = function(sequelize, DataTypes) {
     surname: {
       type: DataTypes.STRING(50),
     },
+  }, {
+    instanceMethods: {
+      toJSON: function () {
+        var values = Object.assign({}, this.get());
+
+        delete values.password;
+        return values;
+      }
+    }
   });
 
   return User;

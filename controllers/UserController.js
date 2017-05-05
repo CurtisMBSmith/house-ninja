@@ -1,8 +1,24 @@
 var express = require('express'),
-    db = require('../models/hnin/index.js');
+    db = require('../models/hnin/index.js'),
+    bcrypt = require('bcrypt');
 
 var router = express.Router({mergeParams: true});
 var UserModel = db.User;
+
+const saltRounds = 11;
+
+function validateUserDetails(req) {
+  if (!req.body.email || !req.body.password || !req.body.givenName ||
+      !req.body.surname) {
+    return 'Missing one or more required fields.';
+  }
+
+  if (req.body.password.length < 8) {
+    return 'Password must be at least 8 characters long.';
+  }
+
+  return null;
+}
 
 function extractUserDetails(req) {
   console.log(req.body);
@@ -52,9 +68,48 @@ router.route('/destroy').put(function(req, res) {
 });
 
 router.route('/create').post(function(req, res) {
+
   res.set('Content-Type', 'application/json');
 
-  res.send('User Created');
+  var validation = validateUserDetails(req);
+  if (validation) {
+    res.status(430).send({isError: true, err: validation});
+    return;
+  }
+
+  UserModel.findOne({
+    where: {
+      email: req.body.email
+    },
+    attributes: {
+      exclude: ['password']
+    }
+  }).then(function (user) {
+    if (user) {
+      res.status(430).send({isError: true, err: 'A user already exists with that email address.'});
+    } else {
+      bcrypt.hash(req.body.password, saltRounds, function(err, hash) {
+        if (err) {
+          console.log(err);
+          res.status(500).send({isError: true, err: 'An error occurred. See error logs for details.'});
+          return;
+        }
+
+        UserModel.create({
+          email: req.body.email,
+          givenName: req.body.givenName,
+          surname: req.body.surname,
+          password: hash
+        }).then(function(user) {
+          req.session.user = {
+            id: user.get('id'),
+            email: user.get('email')
+          };
+          res.send(user);
+        });
+      });
+    }
+  });
 });
 
 router.route('/authenticate').post(function(req, res) {
@@ -71,8 +126,7 @@ router.route('/authenticate').post(function(req, res) {
 
   UserModel.findOne({
     where: {
-      email: userDetails.email,
-      password: userDetails.password
+      email: userDetails.email
     }
   }).then(function (user) {
     if (!user) {
@@ -83,12 +137,21 @@ router.route('/authenticate').post(function(req, res) {
       });
       return;
     }
-    console.log(user.get('email') + ' authenticated.');
-    req.session.user = {
-      id: user.get('id'),
-      email: user.get('email')
-    };
-    res.send({display_name: user.get('email')});
+    bcrypt.compare(userDetails.password, user.get('password'), function(err, result) {
+      if (err || result == false) {
+        res.status(430).send({
+          err: 'Invalid username or password.',
+          isError: true
+        });
+        return;
+      }
+      console.log(user.get('email') + ' authenticated.');
+      req.session.user = {
+        id: user.get('id'),
+        email: user.get('email')
+      };
+      res.send(user);
+    });
   });
 
 });

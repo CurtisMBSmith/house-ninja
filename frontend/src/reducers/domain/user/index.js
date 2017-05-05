@@ -1,5 +1,5 @@
 import {
-  REGISTER_USER
+  REGISTER_USER, LOGOUT_USER
 } from '../../../constants/action/types/user/LoginActionTypes';
 
 const initialState = {
@@ -12,10 +12,18 @@ const registerUser = (state = initialState, action) => {
   });
 };
 
+const logoutUser = (state = initialState) => {
+  return Object.assign({}, state, {
+    currentUser: null
+  });
+};
+
 const user = (state = initialState, action) => {
   switch (action.type) {
     case REGISTER_USER:
       return registerUser(state, action);
+    case LOGOUT_USER:
+      return logoutUser(state);
     default:
       return state;
   }
