@@ -8,24 +8,24 @@ var User = db.User;
 
 router.route('/details').get(function(req1, res1) {
   validateSession(req1, res1, function(req, res) {
-    Household.findAll({
+    console.log('Finding household for user ' + req.session.user.id);
+    User.findOne({
+      where: {
+        id: req.session.user.id
+      },
       include: [{
-        model: User,
-        through: {
-          where: {userId: req.session.user.id }
-        },
-        attributes: {
-          exclude: ['password']
-        }
+        model: Household
+
       }]
-    }).then(function (household) {
-      if (!household || household.length === 0) {
-        res.status(404).send({
-          err: 'No household found'
+    }).then(function (user) {
+      if (!user || user.Households.length === 0) {
+        res.status(430).send({
+          err: 'No household found',
+          isError: true
         });
       }
 
-      res.send(household[0]);
+      res.send(user.Households[0]);
     });
   });
 });

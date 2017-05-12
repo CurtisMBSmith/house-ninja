@@ -20,7 +20,7 @@ class CreateJoinPanel extends Component {
             this.props.toggleJoinForm();
           }} >Join</a>
         </div>
-        {this.props.showJoinForm ? <HouseholdJoinForm /> : <HouseholdCreateForm />}
+        {this.props.showJoinForm ? <HouseholdJoinForm /> : <HouseholdCreateForm create={this.props.createHousehold}/>}
      </div>
     );
   };

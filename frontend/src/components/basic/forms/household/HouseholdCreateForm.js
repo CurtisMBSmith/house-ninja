@@ -12,7 +12,7 @@ export default class HouseholdCreateForm extends Component {
           if (!name.value.trim()) {
             return
           }
-          this.props.onLogIn(email.value, password.value);
+          this.props.create(name.value);
           e.preventDefault();
         }}>Create</button>
         <p className="formStatus">{this.statusText()}</p>
