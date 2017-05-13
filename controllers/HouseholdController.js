@@ -30,4 +30,23 @@ router.route('/details').get(function(req1, res1) {
   });
 });
 
+router.route('/create').post(function(req, res) {
+
+  res.set('Content-Type', 'application/json');
+
+  if (req.body.name === null || req.body.name.trim().length === 0)  {
+    req.status(430).send({isError: true, err: 'Household name must be specified'});
+  }
+
+  Household.create({
+    name: req.body.name,
+    type: 'Family'
+  }).then(function(household) {
+    req.session.household = {
+      id: household.get('id')
+    };
+    res.send(household);
+  });
+});
+
 exports.router = router;
