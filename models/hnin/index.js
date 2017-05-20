@@ -5,7 +5,6 @@ var sequelize = new Sequelize(process.env.pgconn);
 
 var modelNames = [
   'User',
-  'Task',
   'Household',
   'HouseholdUser',
   'Session'
@@ -33,21 +32,6 @@ modelNames.forEach(function(model) {
       unique: true
     },
     foreignKey: 'householdId'
-  });
-
-  // Associate the Tasks to the Households
-  exp.Task.belongsTo(exp.Household, {
-    foreignKey: 'householdId',
-  });
-
-  exp.Household.hasMany(exp.Task, {
-    foreignKey: 'householdId'
-  });
-
-  // Associate the User with the completedBy field in a Task
-  exp.Task.belongsTo(exp.User, {
-    foreignKey: 'completedBy',
-    onDelete: 'NO ACTION'
   });
 
   // Associate a user as the creator of a household
