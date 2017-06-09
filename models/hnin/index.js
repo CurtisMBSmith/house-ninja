@@ -7,7 +7,9 @@ var modelNames = [
   'User',
   'Household',
   'HouseholdUser',
-  'Session'
+  'Session',
+  'PlannedDay',
+  'PlannedMeal',
 ];
 
 modelNames.forEach(function(model) {
@@ -40,6 +42,23 @@ modelNames.forEach(function(model) {
     onDelete: 'NO ACTION'
   });
 
+  // Associate a planned day to a household
+  exp.PlannedDay.belongsTo(exp.Household, {
+    foreignKey: 'householdId'
+  });
+
+  exp.Household.hasMany(exp.PlannedDay, {
+    foreignKey: 'householdId'
+  });
+
+  // Associate a planned meal to a planned day
+  exp.PlannedMeal.belongsTo(exp.PlannedDay, {
+    foreignKey: 'plannedDayId'
+  });
+
+  exp.PlannedDay.hasMany(exp.PlannedMeal, {
+    foreignKey: 'plannedDayId'
+  });
 })(module.exports);
 
 module.exports.sequelize = sequelize;
