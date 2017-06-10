@@ -12,7 +12,8 @@ var modelNames = [
   'PlannedMeal',
   'Item',
   'CookItem',
-  'PlannedMealItem'
+  'PlannedMealItem',
+  'UserPlannedMeal'
 ];
 
 modelNames.forEach(function(model) {
@@ -93,6 +94,29 @@ modelNames.forEach(function(model) {
     foreignKey: 'plannedMealId'
   });
 
+  // Associate PlannedMeal with User through UserPlannedMeal
+  exp.User.belongsToMany(exp.PlannedMeal, {
+    through: {
+      model: exp.UserPlannedMeal
+    },
+    foreignKey: 'userId'
+  });
+
+  exp.PlannedMeal.belongsToMany(exp.User, {
+    through: {
+      model: exp.UserPlannedMeal
+    },
+    foreignKey: 'plannedMealId'
+  });
+
+  // Associate an item to a household
+  exp.Item.belongsTo(exp.Household, {
+    foreignKey: 'housholdId'
+  });
+
+  exp.Household.hasMany(exp.Item, {
+    foreignKey: 'householdId'
+  });
 })(module.exports);
 
 module.exports.sequelize = sequelize;
