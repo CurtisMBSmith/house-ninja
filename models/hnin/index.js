@@ -10,6 +10,9 @@ var modelNames = [
   'Session',
   'PlannedDay',
   'PlannedMeal',
+  'Item',
+  'CookItem',
+  'PlannedMealItem'
 ];
 
 modelNames.forEach(function(model) {
@@ -59,6 +62,37 @@ modelNames.forEach(function(model) {
   exp.PlannedDay.hasMany(exp.PlannedMeal, {
     foreignKey: 'plannedDayId'
   });
+
+  // Associate Item with PlannedDay through CookItem
+  exp.Item.belongsToMany(exp.PlannedDay, {
+    through: {
+      model: exp.CookItem
+    },
+    foreignKey: 'itemId'
+  });
+
+  exp.PlannedDay.belongsToMany(exp.Item, {
+    through: {
+      model: exp.CookItem
+    },
+    foreignKey: 'plannedDayId'
+  });
+
+  // Associate Item with PlannedMeal through PlannedMealItem
+  exp.Item.belongsToMany(exp.PlannedMeal, {
+    through: {
+      model: exp.PlannedMealItem
+    },
+    foreignKey: 'itemId'
+  });
+
+  exp.PlannedMeal.belongsToMany(exp.Item, {
+    through: {
+      model: exp.PlannedMealItem
+    },
+    foreignKey: 'plannedMealId'
+  });
+
 })(module.exports);
 
 module.exports.sequelize = sequelize;
