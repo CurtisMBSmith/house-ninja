@@ -1,6 +1,7 @@
 var express = require('express'),
     db = require('../models/hnin/index.js'),
-    bcrypt = require('bcrypt');
+    bcrypt = require('bcrypt'),
+    logger = require('bunyan').createLogger({name: 'UserController'});
 
 var router = express.Router({mergeParams: true});
 var UserModel = db.User;
@@ -145,7 +146,7 @@ router.route('/authenticate').post(function(req, res) {
         });
         return;
       }
-      console.log(user.get('email') + ' authenticated.');
+      logger.info(user.get('email') + ' authenticated.');
       req.session.user = {
         id: user.get('id'),
         email: user.get('email')

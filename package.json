@@ -17,6 +17,7 @@
     "babelify": "^7.3.0",
     "bcrypt": "^1.0.2",
     "body-parser": "^1.15.2",
+    "bunyan": "1.8.10",
     "compression": "1.6.2",
     "connect-session-sequelize": "^4.1.0",
     "errorhandler": "^1.5.0",
