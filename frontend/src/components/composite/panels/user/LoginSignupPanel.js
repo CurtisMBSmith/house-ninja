@@ -9,22 +9,32 @@ class LoginSignupPanel extends Component {
   render() {
     return (
       <div id="loginSignupBox" >
-        <div className="logInTab">
+        <div className={ this.tabClasses(true) }>
           <a href="#" onClick={e=> {
             e.preventDefault();
             this.props.showUserLoginForm();
           }} >Log In</a>
         </div>
-        <div className="signUpTab">
+        <div className={ this.tabClasses(false) }>
           <a href="#" onClick={e=> {
             e.preventDefault();
             this.props.showUserSignupForm();
           }} >Sign Up</a>
         </div>
-        {this.props.showLoginForm ? <LoginForm onLogIn={this.props.onLogIn} />
-            : <SignupForm registerUser={this.props.registerUser} />}
+        <div className="formContainer" >
+          {this.props.showLoginForm ? <LoginForm onLogIn={this.props.onLogIn} />
+              : <SignupForm registerUser={this.props.registerUser} />}
+        </div>
       </div>
     );
+  }
+
+  tabClasses(isLoginTab) {
+    if (isLoginTab) {
+      return this.props.showLoginForm ? "tab activeTab" : "tab inactiveTab";
+    } else {
+      return !this.props.showLoginForm ? "tab activeTab" : "tab inactiveTab";
+    }
   }
 }
 

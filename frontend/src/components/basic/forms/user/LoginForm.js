@@ -9,7 +9,7 @@ export default class LoginForm extends Component {
         <input type="email" placeholder="Enter email address" ref={node => {
           email = node
         }} required/>
-        <input type="password" placeholder="hunter2" ref={node => {
+        <input type="password" placeholder="Enter password" ref={node => {
           password = node
         }} required/>
         <button type="submit" onClick={e => {
