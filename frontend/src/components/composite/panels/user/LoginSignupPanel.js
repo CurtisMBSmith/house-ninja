@@ -3,11 +3,12 @@ import { connect } from 'react-redux';
 import { doLogIn, registerUser, showUserSignupForm, showUserLoginForm } from '../../../../actions/user';
 import LoginForm from '../../../basic/forms/user/LoginForm';
 import SignupForm from '../../../basic/forms/user/SignupForm';
+import './LoginSignupPanel.scss';
 
 class LoginSignupPanel extends Component {
   render() {
     return (
-      <div className="loginSignupBox" >
+      <div id="loginSignupBox" >
         <div className="logInTab">
           <a href="#" onClick={e=> {
             e.preventDefault();

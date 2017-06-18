@@ -25,5 +25,5 @@ render(
   <Provider store={appStore}>
     <Application />
   </Provider>,
-  document.getElementById('content')
+  document.getElementById("reactApp")
 );

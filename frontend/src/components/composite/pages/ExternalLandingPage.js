@@ -1,9 +1,10 @@
 import React from 'react';
 import LoginSignupPanel from '../panels/user/LoginSignupPanel';
+import './ExternalLandingPage.scss';
 
 const ExternalLandingPage = () => {
   return (
-  <div>
+  <div id="content" >
     <LoginSignupPanel />
   </div>
 )};
