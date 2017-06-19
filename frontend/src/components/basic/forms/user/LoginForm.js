@@ -16,7 +16,7 @@ export default class LoginForm extends Component {
         <div className="formButtons">
           <button type="submit" onClick={e => {
             if (!email.value.trim()) {
-              return
+              return;
             }
             if (!email.validity.valid || !password.validity.valid) {
               return;

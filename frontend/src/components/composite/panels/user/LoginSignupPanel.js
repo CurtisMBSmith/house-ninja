@@ -22,7 +22,8 @@ class LoginSignupPanel extends Component {
           }} >Sign Up</a>
         </div>
         <div className="formContainer" >
-          {this.props.showLoginForm ? <LoginForm onLogIn={this.props.onLogIn} />
+          {this.props.showLoginForm ? <LoginForm onLogIn={this.props.onLogIn}
+              loginErr={this.props.loginErr} loginInProgress={this.props.loginInProgress} />
               : <SignupForm registerUser={this.props.registerUser} />}
         </div>
       </div>
