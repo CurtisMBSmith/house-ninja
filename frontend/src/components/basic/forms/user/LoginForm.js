@@ -12,18 +12,20 @@ export default class LoginForm extends Component {
         <input type="password" placeholder="Enter password" ref={node => {
           password = node
         }} required/>
-        <button type="submit" onClick={e => {
-          if (!email.value.trim()) {
-            return
-          }
-          if (!email.validity.valid || !password.validity.valid) {
-            return;
-          }
-          this.props.onLogIn(email.value, password.value);
-          e.preventDefault();
-        }}>Log In</button>
-        <button type="button" >Forgot Password?</button>
         <p className="loginStatus">{this.statusText()}</p>
+        <div className="formButtons">
+          <button type="submit" onClick={e => {
+            if (!email.value.trim()) {
+              return
+            }
+            if (!email.validity.valid || !password.validity.valid) {
+              return;
+            }
+            this.props.onLogIn(email.value, password.value);
+            e.preventDefault();
+          }}>Log In</button>
+          <button type="button" >Forgot Password?</button>
+        </div>
      </form>
     );
   };

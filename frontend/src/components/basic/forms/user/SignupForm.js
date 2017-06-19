@@ -20,22 +20,24 @@ export default class SignupForm extends Component {
         <input type="text" placeholder="Enter surname" ref={node => {
           surname = node
         }} required/>
-        <button type="submit" onClick={e => {
-          // Clear custom validity so that validation can proceed
-          // if errors have been fixed.
-          password.setCustomValidity('');
-          if (!this.validateForm(email, password, password2, givenName, surname)) {
-            return
-          }
-
-          if (password.value !== password2.value) {
-            password.setCustomValidity('Passwords must match');
-            return;
-          }
-          this.props.registerUser(email.value, password.value, givenName.value, surname.value);
-          e.preventDefault();
-        }}>Sign Up</button>
         <p className="createUserStatus">{this.statusText()}</p>
+        <div className="formButtons">
+          <button type="submit" onClick={e => {
+            // Clear custom validity so that validation can proceed
+            // if errors have been fixed.
+            password.setCustomValidity('');
+            if (!this.validateForm(email, password, password2, givenName, surname)) {
+              return
+            }
+
+            if (password.value !== password2.value) {
+              password.setCustomValidity('Passwords must match');
+              return;
+            }
+            this.props.registerUser(email.value, password.value, givenName.value, surname.value);
+            e.preventDefault();
+          }}>Sign Up</button>
+        </div>
      </form>
     );
   };
