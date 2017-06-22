@@ -8,10 +8,9 @@ var modelNames = [
   'Household',
   'HouseholdUser',
   'Session',
-  'PlannedDay',
   'PlannedMeal',
   'Item',
-  'CookItem',
+  'PlannedCook',
   'PlannedMealItem',
   'UserPlannedMeal'
 ];
@@ -46,37 +45,13 @@ modelNames.forEach(function(model) {
     onDelete: 'NO ACTION'
   });
 
-  // Associate a planned day to a household
-  exp.PlannedDay.belongsTo(exp.Household, {
-    foreignKey: 'householdId'
-  });
-
-  exp.Household.hasMany(exp.PlannedDay, {
-    foreignKey: 'householdId'
-  });
-
   // Associate a planned meal to a planned day
-  exp.PlannedMeal.belongsTo(exp.PlannedDay, {
-    foreignKey: 'plannedDayId'
+  exp.PlannedMeal.belongsTo(exp.Household, {
+    foreignKey: 'householdId'
   });
 
-  exp.PlannedDay.hasMany(exp.PlannedMeal, {
-    foreignKey: 'plannedDayId'
-  });
-
-  // Associate Item with PlannedDay through CookItem
-  exp.Item.belongsToMany(exp.PlannedDay, {
-    through: {
-      model: exp.CookItem
-    },
-    foreignKey: 'itemId'
-  });
-
-  exp.PlannedDay.belongsToMany(exp.Item, {
-    through: {
-      model: exp.CookItem
-    },
-    foreignKey: 'plannedDayId'
+  exp.Household.hasMany(exp.PlannedMeal, {
+    foreignKey: 'householdId'
   });
 
   // Associate Item with PlannedMeal through PlannedMealItem
@@ -115,6 +90,21 @@ modelNames.forEach(function(model) {
   });
 
   exp.Household.hasMany(exp.Item, {
+    foreignKey: 'householdId'
+  });
+
+  // Associate an Item to a Household through a PlannedCook
+  exp.Item.belongsToMany(exp.Household, {
+    through: {
+      model: exp.PlannedCook
+    },
+    foreignKey: 'itemId'
+  });
+
+  exp.Household.belongsToMany(exp.Item, {
+    through: {
+      model: exp.PlannedCook
+    },
     foreignKey: 'householdId'
   });
 })(module.exports);
