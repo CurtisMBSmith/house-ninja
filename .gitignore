@@ -2,6 +2,8 @@
 logs
 *.log
 npm-debug.log*
+log/
+*.out
 
 # Runtime data
 pids
@@ -39,6 +41,9 @@ vendor
 
 # Sublime workspace files
 *.sublime-workspace
+
+# IntelliJ IDEA files
+*.idea
 
 # Environment-specific configuration files
 conf/properties/pgdb.properties
