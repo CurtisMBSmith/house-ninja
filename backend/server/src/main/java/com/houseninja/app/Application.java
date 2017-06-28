@@ -9,7 +9,6 @@ import org.springframework.context.annotation.ComponentScan;
 public class Application {
 
     public static void main(String... args) throws Exception {
-        System.out.println(System.getProperty("user.dir"));
         SpringApplication.run(Application.class, args);
 
     }

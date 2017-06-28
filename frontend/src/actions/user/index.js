@@ -94,7 +94,8 @@ export const doLogIn = (email, password) => {
   return dispatch => {
     dispatch(beginLogin());
     var headers = new Headers();
-    headers.append('Content-Type', 'application/json');
+    headers.append('Content-Type', 'application/x-www-form-urlencoded');
+//    headers.append('Content-Type', 'application/json');
 
     var jsonBody = JSON.stringify({});
     if (email && password) {
@@ -104,11 +105,17 @@ export const doLogIn = (email, password) => {
       });
     }
 
+//    var formData = new FormData();
+//    formData.append('username', email);
+//    formData.append('password', password);
+    var formData = 'username=' + email +'&password=' + password;
+    console.log(formData);
+
     return fetch('http://localhost:3000/users/authenticate', {
       method: 'post',
       credentials: 'same-origin',
       headers,
-      body: jsonBody
+      body: formData //jsonBody //formData
     })
     .then(resp => resp.json())
     .then(json => {
