@@ -1,9 +1,42 @@
 group 'house-ninja'
 version '1.0-SNAPSHOT'
 
+// Load the database properties.
+Properties propFile = new Properties()
+// FIXME: Relative import breaks gradle auto-import in IDEA
+propFile.load(new FileInputStream("../../conf/properties/pgdb.properties"))
+propFile.each { prop ->
+    project.ext.set(prop.key, prop.value)
+}
+
+def props = project.properties
+def dbUrl = 'jdbc:postgresql://' + props['pghost'] + ':' + props['pgport'] + '/' + props['pgschema']
+
+buildscript {
+    repositories {
+        mavenCentral()
+        jcenter()
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+    }
+
+    dependencies {
+        classpath 'org.springframework.boot:spring-boot-gradle-plugin:1.5.4.RELEASE'
+        classpath 'org.postgresql:postgresql:42.1.1'
+        classpath 'nu.studer:gradle-jooq-plugin:2.0.6'
+        classpath 'gradle.plugin.com.boxfuse.client:flyway-release:4.2.0'
+    }
+}
+
 apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'nu.studer.jooq'
+apply plugin: 'org.flywaydb.flyway'
 
 sourceCompatibility = 1.8
+targetCompatibility = 1.8
 
 repositories {
     mavenCentral()
@@ -14,4 +47,51 @@ dependencies {
     compile group: 'org.jooq', name: 'jooq', version: '3.9.3'
     compile group: 'org.jooq', name: 'jooq-meta', version: '3.9.3'
     compile group: 'org.jooq', name: 'jooq-codegen', version: '3.9.3'
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-jooq', version: '1.5.4.RELEASE'
+    compile group: 'org.flywaydb', name: 'flyway-core', version: '4.2.0'
+    runtime group: 'org.postgresql', name: 'postgresql', version: '42.1.1'
 }
+
+jooq {
+    houseNinja(sourceSets.main) {
+        jdbc {
+            driver = 'org.postgresql.Driver'
+            url = dbUrl
+            user = props['pguser']
+            password = props['pgpass']
+            schema = 'public'
+        }
+        generator {
+            name = 'org.jooq.util.DefaultGenerator'
+            strategy {
+                name = 'org.jooq.util.DefaultGeneratorStrategy'
+            }
+            database {
+                name = 'org.jooq.util.postgres.PostgresDatabase'
+                inputSchema = 'public'
+            }
+            generate {
+                relations = true
+                deprecated = false
+                records = true
+                immutablePojos = false
+                fluentSetters = true
+            }
+            target {
+                packageName = 'com.houseninja.data.model'
+                directory = 'src/main/generated/java'
+            }
+        }
+    }
+}
+
+flyway {
+    url = dbUrl
+    user = props['pguser']
+    password = props['pgpass']
+    schemas = ['public']
+    locations = ["filesystem:$project.projectDir/src/main/resources/db/migration"]
+}
+
+generateHouseNinjaJooqSchemaSource.dependsOn flywayMigrate
+
