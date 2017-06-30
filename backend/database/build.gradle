@@ -20,12 +20,10 @@ version '1.0-SNAPSHOT'
 
 // Load the database properties.
 Properties propFile = new Properties()
-// FIXME: Relative import breaks gradle auto-import in IDEA
-propFile.load(new FileInputStream("conf/properties/pgdb.properties"))
+propFile.load(new FileInputStream("$project.projectDir/conf/properties/pgdb.properties"))
 propFile.each { prop ->
     project.ext.set(prop.key, prop.value)
 }
-
 
 def props = project.properties
 def dbUrl = 'jdbc:postgresql://' + props['pghost'] + ':' + props['pgport'] + '/' + props['pgschema']
@@ -38,6 +36,9 @@ apply plugin: 'org.flywaydb.flyway'
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
+
+// Disable bootrepackage since this project doesn't have a main class.
+bootRepackage.enabled = false
 
 repositories {
     mavenCentral()
