@@ -42,15 +42,11 @@ bootRepackage.enabled = false
 
 repositories {
     mavenCentral()
-//    jcenter()
 }
-
-//configurations {
-//    jdbcdriver
-//}
 
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
+    testCompile group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: '1.4.1.RELEASE'
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-jooq', version: '1.4.1.RELEASE'
     compile group: 'org.flywaydb', name: 'flyway-core', version: '4.0.3'
     compile group: 'org.postgresql', name: 'postgresql', version: '9.4.1211.jre7'
@@ -79,12 +75,13 @@ jooq {
                 deprecated = false
                 records = true
                 immutablePojos = false
+                daos = true
                 fluentSetters = true
 //                javaTimeTypes = true
             }
             target {
-                packageName = 'com.houseninja.data.model'
-                directory = 'src/main/generated/java'
+                packageName = 'com.houseninja.db.gen'
+                directory = 'src/main/java/'
             }
         }
     }
