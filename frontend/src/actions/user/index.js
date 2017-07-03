@@ -15,17 +15,17 @@ export const doLogOut = () => {
   return dispatch => {
     var headers = new Headers();
 
-    return fetch('http://localhost:3000/users/destroy', {
-      method: 'put',
+    return fetch('http://localhost:3000/logout', {
+      method: 'get',
       credentials: 'same-origin',
       headers
     })
     .then(resp => {
-      if (resp.status !== 204) {
-        console.log('Logout failed with code ' + resp.status);
+      if (resp.status === 302 || resp.status === 200) {
+        console.log('Logout successful.');
         dispatch(logOut());
       } else {
-        console.log('Logout successful.');
+        console.log('Logout failed with code ' + resp.status);
         dispatch(logOut());
       }
     })
