@@ -27,7 +27,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             .anyRequest().authenticated()
             .and()
             .csrf().disable() // TODO: Enable CSRF
-          .formLogin().loginPage("/users/authenticate").permitAll().and().logout().permitAll();
+          .formLogin().loginPage("/").permitAll().and().logout().permitAll();
     }
 
     @Autowired

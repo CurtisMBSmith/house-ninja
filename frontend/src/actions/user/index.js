@@ -109,9 +109,9 @@ export const doLogIn = (email, password) => {
 //    formData.append('username', email);
 //    formData.append('password', password);
     var formData = 'username=' + email +'&password=' + password;
-    console.log(formData);
+//    console.log(formData);
 
-    return fetch('http://localhost:3000/users/authenticate', {
+    return fetch('http://localhost:3000/', {
       method: 'post',
       credentials: 'same-origin',
       headers,
