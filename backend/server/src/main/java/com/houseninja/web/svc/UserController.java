@@ -2,7 +2,9 @@ package com.houseninja.web.svc;
 
 import com.houseninja.db.gen.tables.daos.UsersDao;
 import com.houseninja.db.gen.tables.pojos.Users;
+import com.houseninja.sec.HouseninjaUserDetails;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
@@ -43,5 +45,12 @@ public class UserController {
     @RequestMapping(value = BASE_PATH + "/retrieve/{id}", method = RequestMethod.GET)
     public List<Users> retrieve(@PathVariable(value = "id") Long id) {
         return userDao.fetchById(id);
+    }
+
+    @RequestMapping(value = BASE_PATH + "/details", method = RequestMethod.GET)
+    public Users currentUserDetails() {
+        HouseninjaUserDetails user = (HouseninjaUserDetails) SecurityContextHolder.getContext().getAuthentication()
+            .getPrincipal();
+        return userDao.fetchById(user.getId()).get(0).setPassword(null);
     }
 }

@@ -170,7 +170,7 @@ export const getUserDetails = () => {
     var headers = new Headers();
     headers.append('Content-Type', 'application/json');
 
-    fetch('http://localhost:3000/users/details', {
+    fetch('http://localhost:3000/user/details', {
       method: 'get',
       credentials: 'same-origin',
       headers

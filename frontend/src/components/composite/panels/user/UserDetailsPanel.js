@@ -15,7 +15,7 @@ class UserDetailsPanel extends Component {
   }
 
   userDisplayName() {
-    return this.props.user.givenName + ' ' + this.props.user.surname;
+    return this.props.user.givenname + ' ' + this.props.user.surname;
   }
 }
 
