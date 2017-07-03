@@ -8,6 +8,7 @@ import org.jooq.impl.DefaultDSLContext;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
@@ -19,7 +20,6 @@ import javax.sql.DataSource;
 import java.util.Properties;
 
 @Configuration
-@PropertySource(value = {"file:conf/properties/pgdb.properties"})
 @EnableTransactionManagement
 public class HouseNinjaDBConfig {
 
@@ -63,6 +63,7 @@ public class HouseNinjaDBConfig {
     }
 
     @Bean
+    @Primary
     public TransactionAwareDataSourceProxy transactionAwareDataSource() throws Exception {
         return new TransactionAwareDataSourceProxy(dataSource());
     }

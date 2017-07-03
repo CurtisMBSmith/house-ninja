@@ -134,7 +134,7 @@ export const doLogIn = (email, password) => {
 
 };
 
-export const registerUser = (email, password, givenName, surname) => {
+export const registerUser = (email, password, givenname, surname) => {
   return dispatch => {
     dispatch(regsterStart());
     var headers = new Headers();
@@ -143,11 +143,11 @@ export const registerUser = (email, password, givenName, surname) => {
     var jsonBody = JSON.stringify({
       email,
       password,
-      givenName,
+      givenname,
       surname
     });
 
-    return fetch('http://localhost:3000/users/create', {
+    return fetch('http://localhost:3000/user/create', {
       method: 'post',
       credentials: 'same-origin',
       headers,
@@ -158,7 +158,7 @@ export const registerUser = (email, password, givenName, surname) => {
       if (json.isError) {
         dispatch(registerErr(json.err));
       } else {
-        dispatch(registerUser(json));
+        dispatch(authSuccess(json));
       }
       dispatch(registerDone());
     })
