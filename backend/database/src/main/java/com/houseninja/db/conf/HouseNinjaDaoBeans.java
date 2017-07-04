@@ -1,8 +1,6 @@
 package com.houseninja.db.conf;
 
-import com.houseninja.db.dao.HouseholdDao;
-import com.houseninja.db.dao.HouseholdUserDao;
-import com.houseninja.db.dao.UserDao;
+import com.houseninja.db.dao.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -24,5 +22,30 @@ public class HouseNinjaDaoBeans {
     @Bean
     public HouseholdUserDao householdUserDao(@Autowired org.jooq.Configuration conf) {
         return new HouseholdUserDao(conf);
+    }
+
+    @Bean
+    public ItemDao itemDao(@Autowired org.jooq.Configuration conf) {
+        return new ItemDao(conf);
+    }
+
+    @Bean
+    public PlannedCookDao plannedCookDao(@Autowired org.jooq.Configuration conf) {
+        return new PlannedCookDao(conf);
+    }
+
+    @Bean
+    public PlannedMealDao plannedMealDao(@Autowired org.jooq.Configuration conf) {
+        return new PlannedMealDao(conf);
+    }
+
+    @Bean
+    public PlannedMealItemDao plannedMealItemDao(@Autowired org.jooq.Configuration conf) {
+        return new PlannedMealItemDao(conf);
+    }
+
+    @Bean
+    public UserPlannedMealItemDao userPlannedMealItemDao(@Autowired org.jooq.Configuration conf) {
+        return new UserPlannedMealItemDao(conf);
     }
 }
