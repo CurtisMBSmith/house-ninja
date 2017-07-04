@@ -42,11 +42,6 @@ public class UserController {
         return userDao.fetchOneByEmail(user.getEmail()).setPassword(null);
     }
 
-    @RequestMapping(value = BASE_PATH + "/retrieve/{id}", method = RequestMethod.GET)
-    public List<Users> retrieve(@PathVariable(value = "id") Long id) {
-        return userDao.fetchById(id);
-    }
-
     @RequestMapping(value = BASE_PATH + "/details", method = RequestMethod.GET)
     public Users currentUserDetails() {
         HouseninjaUserDetails user = (HouseninjaUserDetails) SecurityContextHolder.getContext().getAuthentication()
