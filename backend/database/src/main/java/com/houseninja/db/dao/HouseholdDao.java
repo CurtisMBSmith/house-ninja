@@ -4,7 +4,6 @@ import com.houseninja.db.gen.tables.daos.HouseholdsDao;
 import com.houseninja.db.gen.tables.pojos.Households;
 import com.houseninja.db.gen.tables.records.HouseholdsRecord;
 import org.jooq.Configuration;
-import org.jooq.Result;
 
 import static com.houseninja.db.gen.Tables.HOUSEHOLDS;
 import static org.jooq.impl.DSL.using;

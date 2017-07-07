@@ -41,7 +41,13 @@ public class HouseholdController {
         }
 
         List<Households> households = householdDao.fetchById(userHousehold.getHouseholdid());
-        return households.isEmpty() ? null : households.get(0);
+
+        Households foundHousehold = households.isEmpty() ? null : households.get(0);
+        if (foundHousehold != null) {
+            user.setHouseholdId(foundHousehold.getId());
+        }
+
+        return foundHousehold;
     }
 
     @RequestMapping(value = BASE_PATH + "/create", method = RequestMethod.POST)
@@ -63,6 +69,9 @@ public class HouseholdController {
             .setUpdatedat(new Timestamp(now.toEpochMilli()))
             .setHouseholdid(created.getId())
             .setUserid(user.getId()));
+
+        // Update the user session with the household id.
+        user.setHouseholdId(created.getId());
 
         return created;
     }

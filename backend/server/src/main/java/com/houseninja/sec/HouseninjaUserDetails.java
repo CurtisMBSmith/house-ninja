@@ -11,6 +11,7 @@ public class HouseninjaUserDetails implements UserDetails {
     private final String username;
     private final String password;
     private final long id;
+    private Long householdId;
 
     public HouseninjaUserDetails(Users user) {
         this.username = user.getEmail();
@@ -57,4 +58,12 @@ public class HouseninjaUserDetails implements UserDetails {
         return id;
     }
 
+
+    public Long getHouseholdId() {
+        return householdId;
+    }
+
+    public void setHouseholdId(long householdId) {
+        this.householdId = householdId;
+    }
 }
