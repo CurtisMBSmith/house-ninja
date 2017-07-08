@@ -7,6 +7,7 @@ import com.houseninja.db.gen.tables.daos.HouseholdusersDao;
 import com.houseninja.db.gen.tables.pojos.Households;
 import com.houseninja.db.gen.tables.pojos.Householdusers;
 import com.houseninja.sec.HouseninjaUserDetails;
+import com.houseninja.web.svc.util.UserPrincipalUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -31,8 +32,7 @@ public class HouseholdController {
 
     @RequestMapping(value = BASE_PATH + "/details", method = RequestMethod.GET)
     public Households retrieveHouseholdDetails() {
-        HouseninjaUserDetails user = (HouseninjaUserDetails) SecurityContextHolder.getContext().getAuthentication()
-            .getPrincipal();
+        HouseninjaUserDetails user = UserPrincipalUtil.getUserPrincipal();
 
         Householdusers userHousehold = householdUserDao.fetchOneByUserid(user.getId());
 
@@ -52,8 +52,7 @@ public class HouseholdController {
 
     @RequestMapping(value = BASE_PATH + "/create", method = RequestMethod.POST)
     public Households createHousehold(@RequestBody Households household) {
-        HouseninjaUserDetails user = (HouseninjaUserDetails) SecurityContextHolder.getContext().getAuthentication()
-            .getPrincipal();
+        HouseninjaUserDetails user = UserPrincipalUtil.getUserPrincipal();
 
         household.setId(null);
 

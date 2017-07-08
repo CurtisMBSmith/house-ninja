@@ -3,6 +3,7 @@ package com.houseninja.web.svc;
 import com.houseninja.db.gen.tables.daos.UsersDao;
 import com.houseninja.db.gen.tables.pojos.Users;
 import com.houseninja.sec.HouseninjaUserDetails;
+import com.houseninja.web.svc.util.UserPrincipalUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -44,8 +45,7 @@ public class UserController {
 
     @RequestMapping(value = BASE_PATH + "/details", method = RequestMethod.GET)
     public Users currentUserDetails() {
-        HouseninjaUserDetails user = (HouseninjaUserDetails) SecurityContextHolder.getContext().getAuthentication()
-            .getPrincipal();
+        HouseninjaUserDetails user = UserPrincipalUtil.getUserPrincipal();
         return userDao.fetchById(user.getId()).get(0).setPassword(null);
     }
 }

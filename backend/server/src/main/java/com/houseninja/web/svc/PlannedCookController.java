@@ -3,6 +3,7 @@ package com.houseninja.web.svc;
 import com.houseninja.db.dao.PlannedCookDao;
 import com.houseninja.db.gen.tables.pojos.Plannedcooks;
 import com.houseninja.sec.HouseninjaUserDetails;
+import com.houseninja.web.svc.util.UserPrincipalUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,8 +26,7 @@ public class PlannedCookController {
 
     @RequestMapping(value = BASE_PATH + "/retrieve/{day}", method = RequestMethod.GET)
     public List<Plannedcooks> fetchPlannedCooks(@PathVariable(value = "day") String day) {
-        Long userHouseholdId = ((HouseninjaUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal())
-            .getHouseholdId();
+        Long userHouseholdId = UserPrincipalUtil.getUserPrincipal().getHouseholdId();
         if (userHouseholdId == null) {
             return Collections.emptyList();
         }
