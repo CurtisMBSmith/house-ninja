@@ -8,7 +8,7 @@ import './MealPlanPanel.scss';
 class MealPlanPanel extends Component {
   render() {
     return (
-      <div id="dash">
+      <div id="mealPlanPanel">
         <PlannerNav forwardBackwardAction={this.props.changeDayView} />
         <FoodDayPlan plan={this.getCurrentDayPlan()}/>
       </div>
