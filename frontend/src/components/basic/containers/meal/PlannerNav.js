@@ -1,5 +1,4 @@
 import React, { Component, PropTypes } from 'react';
-import moment from 'moment';
 import ForwardBackwardButton from './../../widgets/ForwardBackwardButton';
 
 export default class PlannerNav extends Component {

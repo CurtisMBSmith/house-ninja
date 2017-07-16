@@ -1,5 +1,4 @@
 import React, { Component, PropTypes } from 'react';
-import moment from 'moment';
 
 export default class ForwardBackwardButton extends Component {
   render() {

@@ -101,28 +101,28 @@ const mockPlannedPrep = () => {
   }];
 };
 
-const mockDays = () => {
-  var dayArray = [];
+const mockPlannedDayCooks = () => {
+  var plannedCooksObj = {};
   for (var i = 0; i < 5; i++) {
-    dayArray.push({
-      date: moment().startOf('day').add(i - 2, 'days'),
-      plannedMeals: mockPlannedMeals(),
-      plannedPrep: mockPlannedPrep()
-    });
+    plannedCooksObj[moment().startOf('day').add(i - 2, 'days')] = mockPlannedPrep();
   }
 
-  return dayArray;
-};
+  return plannedCooksObj;
+}
 
-const mockPlannedDays = () => {
-  return {
-    days: mockDays()
-  };
-};
+const mockPlannedDayMeals = () => {
+  var plannedMealsObj = {};
+  for (var i = 0; i < 5; i++) {
+    plannedMealsObj[moment().startOf('day').add(i - 2, 'days')] = mockPlannedMeals();
+  }
+
+  return plannedMealsObj;
+}
 
 const mockInitialState = () => {
   return {
-    plannedDays: mockPlannedDays()
+    plannedMeals: mockPlannedDayMeals(),
+    plannedPrep: mockPlannedDayCooks()
   };
 };
 

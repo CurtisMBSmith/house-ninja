@@ -1,3 +1,4 @@
+import moment from 'moment';
 import {
   MEAL_ADVANCE_DAY,
   SHOW_LOOKBACK_DAY,
@@ -5,7 +6,7 @@ import {
 } from '../../../constants/action/types/meal/MealActionTypes';
 
 const initialState = {
-  dayIndex: 0,
+  currentPlanningDay: moment().startOf('day'),
   showLookback: false
 };
 
@@ -16,9 +17,8 @@ const changeLookbackState = (state = initialState, newLookbackState) => {
 };
 
 const advanceDay = (state = initialState, action) => {
-  var newIndex = state.dayIndex + action.amount;
   return Object.assign({}, state, {
-    dayIndex: newIndex
+    currentPlanningDay: state.currentPlanningDay.clone().add(action.amount, 'd')
   });
 };
 

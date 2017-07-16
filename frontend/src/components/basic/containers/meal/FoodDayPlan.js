@@ -11,15 +11,15 @@ export default class FoodDayPlan extends Component {
         <div className="dayPlanDate">
           <h2>{this.getDayString()}</h2>
         </div>
-        <PlannedMealList plannedMeals={this.props.plan.plannedMeals} />
-        <FoodPrepList plannedPrep={this.props.plan.plannedPrep} />
+        <PlannedMealList plannedMeals={this.props.plannedMeals} />
+        <FoodPrepList plannedPrep={this.props.plannedPrep} />
       </div>
     );
   }
 
   getDayString() {
     var startOfToday = moment().startOf('day');
-    var dayDiff = startOfToday.diff(this.props.plan.date, 'days');
+    var dayDiff = startOfToday.diff(this.props.day, 'days');
     var result;
     if (dayDiff === 1) {
       result = 'Yesterday';
@@ -28,7 +28,7 @@ export default class FoodDayPlan extends Component {
     } else if (dayDiff === -1) {
       result = 'Tomorrow';
     } else {
-      result = this.props.plan.date.format('LL');
+      result = this.props.day.format('LL');
     }
 
     return result;
@@ -36,5 +36,7 @@ export default class FoodDayPlan extends Component {
 }
 
 FoodDayPlan.propTypes = {
-  plan: PropTypes.object
+  plannedMeals: PropTypes.array.isRequired,
+  plannedPrep: PropTypes.array.isRequired,
+  day: PropTypes.object.isRequired
 };

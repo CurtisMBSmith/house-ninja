@@ -10,22 +10,20 @@ class MealPlanPanel extends Component {
     return (
       <div id="mealPlanPanel">
         <PlannerNav forwardBackwardAction={this.props.changeDayView} />
-        <FoodDayPlan plan={this.getCurrentDayPlan()}/>
+        <FoodDayPlan plannedMeals={this.props.plannedMeals[this.props.currentPlanningDay] || [] }
+            plannedPrep={this.props.plannedPrep[this.props.currentPlanningDay] || [] }
+            day={this.props.currentPlanningDay} />
       </div>
     );
   }
 
-  getCurrentDayPlan() {
-    let index = this.props.dayIndex;
-    let days = this.props.plannedDays.days;
-    return index >= 0 && index < days.length ? days[index] : null;
-  }
 }
 
 const mapStateToProps = (state) => {
   return {
-    plannedDays: state.domain.meal.plannedDays,
-    dayIndex: state.ui.meal.dayIndex
+    plannedMeals: state.domain.meal.plannedMeals,
+    plannedPrep: state.domain.meal.plannedPrep,
+    currentPlanningDay: state.ui.meal.currentPlanningDay
   };
 };
 
