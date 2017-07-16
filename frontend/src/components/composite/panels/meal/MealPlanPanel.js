@@ -1,15 +1,16 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { nextDayView, previousDayView } from '../../../../actions/meal/';
+import { advanceDayView } from '../../../../actions/meal/';
 import FoodDayPlan from '../../../basic/containers/meal/FoodDayPlan';
+import PlannerNav from '../../../basic/containers/meal/PlannerNav';
 import './MealPlanPanel.scss';
 
 class MealPlanPanel extends Component {
   render() {
     return (
       <div id="dash">
-        <FoodDayPlan plan={this.getCurrentDayPlan()} nextDayView={this.props.nextDayView}
-          previousDayView={this.props.previousDayView}/>
+        <PlannerNav forwardBackwardAction={this.props.changeDayView} />
+        <FoodDayPlan plan={this.getCurrentDayPlan()}/>
       </div>
     );
   }
@@ -30,8 +31,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    nextDayView: () => dispatch(nextDayView()),
-    previousDayView: () => dispatch(previousDayView())
+    changeDayView: (amount) => dispatch(advanceDayView(amount))
   };
 };
 
