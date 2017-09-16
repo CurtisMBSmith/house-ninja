@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import FoodDayPlan from '../../basic/containers/meal/FoodDayPlan';
 import MealPlanPanel from './meal/MealPlanPanel';
+import { retrievePlannedMeals } from '../../../actions/meal';
 import './PlannerPanel.scss';
 
 class PlannerPanel extends Component {
@@ -25,6 +26,10 @@ class PlannerPanel extends Component {
       );
     }
   }
+
+  componentWillMount() {
+    this.props.fetchMeals();
+  }
 }
 
 const mapStateToProps = (state) => {
@@ -36,6 +41,9 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    fetchMeals: () => {
+      dispatch(retrievePlannedMeals('2017-07-19', '2017-07-26'));
+    }
   };
 };
 

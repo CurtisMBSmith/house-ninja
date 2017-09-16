@@ -10,13 +10,17 @@ class MealPlanPanel extends Component {
     return (
       <div id="mealPlanPanel">
         <PlannerNav forwardBackwardAction={this.props.changeDayView} />
-        <FoodDayPlan plannedMeals={this.props.plannedMeals[this.props.currentPlanningDay] || [] }
+        <FoodDayPlan plannedMeals={this.props.plannedMeals[this.props.currentPlanningDay.format('YYYY-MM-DD')] || [] }
             plannedPrep={this.props.plannedPrep[this.props.currentPlanningDay] || [] }
             day={this.props.currentPlanningDay} />
       </div>
     );
   }
 
+  componentWillMount() {
+
+
+  }
 }
 
 const mapStateToProps = (state) => {

@@ -1,4 +1,9 @@
 import moment from 'moment';
+import {
+  MEAL_FETCH_IN_PROG,
+  MEALS_FETCHED,
+  MEAL_FETCH_ERR
+} from '../../../constants/action/types/meal/MealActionTypes';
 
 const mockUsers = [
   {
@@ -113,7 +118,7 @@ const mockPlannedDayCooks = () => {
 const mockPlannedDayMeals = () => {
   var plannedMealsObj = {};
   for (var i = 0; i < 5; i++) {
-    plannedMealsObj[moment().startOf('day').add(i - 2, 'days')] = mockPlannedMeals();
+    plannedMealsObj[moment().startOf('day').format('YYYY-MM-DD')] = mockPlannedMeals();
   }
 
   return plannedMealsObj;
@@ -128,8 +133,18 @@ const mockInitialState = () => {
 
 const initialState = mockInitialState();
 
+const populateMeals = (state, meals) => {
+  var newPlannedMeals = Object.assign({}, state.plannedMeals);
+  meals.forEach(meal => newPlannedMeals[meal.day] = meal);
+  return Object.assign({}, state, {
+      plannedMeals: newPlannedMeals
+    });
+}
+
 const meal = (state = initialState, action) => {
   switch (action.type) {
+    case MEALS_FETCHED:
+      return populateMeals(state, action.meals);
     default:
       return state;
   }
