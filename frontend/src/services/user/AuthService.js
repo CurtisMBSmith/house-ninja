@@ -4,7 +4,7 @@ import when from 'when';
 class AuthService {
   login(username, password) {
     return when(request({
-      url: 'http://localhost:3000/users/authenticate',
+      url: 'http://localhost:3000/api/users/authenticate',
       method: 'POST',
       crossOrigin: true,
       type: 'json',

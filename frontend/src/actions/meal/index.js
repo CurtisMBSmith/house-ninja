@@ -37,7 +37,7 @@ export const retrievePlannedMeals = (startDay, endDay) => {
     dispatch(beginMealFetch());
     var headers = new Headers();
 
-    var url = new URL('http://localhost:3000/meal/retrieve');
+    var url = new URL('http://localhost:3000/api/meal/retrieve');
     url.searchParams.append('startDay', startDay);
     url.searchParams.append('endDay', endDay);
     return fetch(url, {
