@@ -23,6 +23,7 @@ import java.sql.Timestamp;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.sql.Date;
+import java.time.OffsetDateTime;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
@@ -59,7 +60,7 @@ public class PlannedCookDaoTest {
         rand = new Random();
         today = LocalDate.now();
 
-        Timestamp now = new Timestamp(Instant.now().toEpochMilli());
+        OffsetDateTime now = OffsetDateTime.now();
         Users user = new Users().setEmail(UUID.randomUUID().toString())
             .setCreatedat(now).setGivenname("Test")
             .setSurname("User").setPassword(UUID.randomUUID().toString())

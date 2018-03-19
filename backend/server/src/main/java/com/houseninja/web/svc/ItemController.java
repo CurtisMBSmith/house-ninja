@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.sql.Timestamp;
 import java.time.Instant;
+import java.time.OffsetDateTime;
 import java.util.List;
 
 public class ItemController {
@@ -50,7 +51,7 @@ public class ItemController {
         validateExistenceOfItemForCurrentUser(toUpdate);
 
         // Set the update_at timestamp.
-        toUpdate.setUpdatedAt(new Timestamp(Instant.now().toEpochMilli()));
+        toUpdate.setUpdatedAt(OffsetDateTime.now());
         itemDao.update(toUpdate);
         return toUpdate;
     }

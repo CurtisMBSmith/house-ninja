@@ -6,7 +6,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.PropertySource;
 
 @SpringBootApplication
-@PropertySource(value = {"file:backend/conf/properties/pgdb.properties"})
+@PropertySource(value = {"file:${HOME}/conf/properties/pgdb.properties"})
 @ComponentScan(basePackages = "com.houseninja")
 public class Application {
 

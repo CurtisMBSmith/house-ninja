@@ -2,6 +2,7 @@ require('es6-promise').polyfill();
 var webpack = require('webpack');
 var CleanPlugin = require('clean-webpack-plugin');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
+var CopyWebpackPlugin = require('copy-webpack-plugin');
 var production = process.env.NODE_ENV === 'production';
 var path = require('path');
 var autoprefixer = require('autoprefixer');
@@ -13,6 +14,9 @@ var plugins = [
     children:   true,
     minChunks:  2,
   }),
+  new CopyWebpackPlugin([
+    { from: 'static' }
+  ])
 ];
 
 if (production) {

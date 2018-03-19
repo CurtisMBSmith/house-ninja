@@ -8,10 +8,10 @@ buildscript {
     }
 
     dependencies {
-        classpath 'org.springframework.boot:spring-boot-gradle-plugin:1.4.1.RELEASE'
         classpath 'org.postgresql:postgresql:9.4.1211.jre7'
-        classpath 'nu.studer:gradle-jooq-plugin:1.0.5'
-        classpath 'gradle.plugin.com.boxfuse.client:flyway-release:4.0.3'
+        classpath 'nu.studer:gradle-jooq-plugin:2.0.9'
+        classpath 'gradle.plugin.com.boxfuse.client:gradle-plugin-publishing:5.0.7'
+
     }
 }
 
@@ -30,15 +30,11 @@ def dbUrl = 'jdbc:postgresql://' + props['pghost'] + ':' + props['pgport'] + '/'
 
 apply plugin: 'java'
 apply plugin: 'idea'
-apply plugin: 'spring-boot'
 apply plugin: 'nu.studer.jooq'
 apply plugin: 'org.flywaydb.flyway'
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
-
-// Disable bootrepackage since this project doesn't have a main class.
-bootRepackage.enabled = false
 
 repositories {
     mavenCentral()
@@ -46,13 +42,16 @@ repositories {
 
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
-    testCompile group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: '1.4.1.RELEASE'
-    compile group: 'org.springframework.boot', name: 'spring-boot-starter-jooq', version: '1.4.1.RELEASE'
-    compile group: 'org.flywaydb', name: 'flyway-core', version: '4.0.3'
+    testCompile group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: '2.0.0.RELEASE'
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-jooq', version: '2.0.0.RELEASE'
+//    compile group: 'org.flywaydb', name: 'flyway-core', version: '5.0.7'
     compile group: 'org.postgresql', name: 'postgresql', version: '9.4.1211.jre7'
 }
 
 jooq {
+    dependencies {
+        jooqRuntime 'org.postgresql:postgresql:9.4.1211.jre7'
+    }
 
     houseNinja(sourceSets.main) {
         jdbc {
@@ -93,6 +92,7 @@ flyway {
     password = props['pgpass']
     schemas = ['public']
     locations = ["filesystem:$project.projectDir/src/main/resources/db/migration"]
+
 }
 
 generateHouseNinjaJooqSchemaSource.dependsOn flywayMigrate

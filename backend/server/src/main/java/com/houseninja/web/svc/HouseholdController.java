@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.sql.Timestamp;
 import java.time.Instant;
+import java.time.OffsetDateTime;
 import java.util.List;
 
 @RestController
@@ -56,16 +57,16 @@ public class HouseholdController {
 
         household.setId(null);
 
-        Instant now = Instant.now();
-        household.setCreatedat(new Timestamp(now.toEpochMilli()));
-        household.setUpdatedat(new Timestamp(now.toEpochMilli()));
+        OffsetDateTime now = OffsetDateTime.now();
+        household.setCreatedat(now);
+        household.setUpdatedat(now);
         household.setCreatedby(user.getId());
         household.setType(HouseholdTypes.Family.toString());
 
         Households created = householdDao.createReturningId(household);
 
-        householdUserDao.insert(new Householdusers().setCreatedat(new Timestamp(now.toEpochMilli()))
-            .setUpdatedat(new Timestamp(now.toEpochMilli()))
+        householdUserDao.insert(new Householdusers().setCreatedat(now)
+            .setUpdatedat(now)
             .setHouseholdid(created.getId())
             .setUserid(user.getId()));
 

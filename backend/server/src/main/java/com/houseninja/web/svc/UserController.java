@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.sql.Timestamp;
 import java.time.Instant;
+import java.time.OffsetDateTime;
 import java.util.List;
 
 @RestController
@@ -34,9 +35,9 @@ public class UserController {
 
         // Encode the user's password.
         user.setPassword(passwordEncoder.encode(user.getPassword().trim()));
-        Instant now = Instant.now();
-        user.setCreatedat(new Timestamp(now.toEpochMilli()));
-        user.setUpdatedat(new Timestamp(now.toEpochMilli()));
+        OffsetDateTime now = OffsetDateTime.now();
+        user.setCreatedat(now);
+        user.setUpdatedat(now);
 
         userDao.insert(user);
 
