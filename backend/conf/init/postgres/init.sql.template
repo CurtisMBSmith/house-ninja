@@ -1,0 +1,3 @@
+CREATE USER hnin_dba WITH PASSWORD <your password here>;
+CREATE DATABASE hnindbnew;
+GRANT ALL PRIVILEGES ON DATABASE hnindbnew TO hnin_dba;
