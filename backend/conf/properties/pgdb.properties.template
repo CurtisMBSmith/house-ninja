@@ -1,5 +1,5 @@
-pguser=your_user
+pguser=hnin_dba
 pgpass=your_pass
-pghost=localhost
+pghost=postgres
 pgport=5432
-pgschema=your_schema
+pgschema=hnindb

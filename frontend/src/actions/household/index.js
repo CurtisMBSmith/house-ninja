@@ -49,7 +49,7 @@ export const createHousehold = (name) => {
       name
     });
 
-    return fetch('http://localhost:3000/api/household/create', {
+    return fetch('http://localhost/api/household/create', {
       method: 'post',
       credentials: 'same-origin',
       headers,
@@ -73,7 +73,7 @@ export const retrieveHousehold = () => {
     dispatch(beginRetrieveHousehold());
     var headers = new Headers();
 
-    return fetch('http://localhost:3000/api/household/details', {
+    return fetch('http://localhost/api/household/details', {
       method: 'get',
       credentials: 'same-origin',
       headers

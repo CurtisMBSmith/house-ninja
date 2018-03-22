@@ -15,7 +15,7 @@ export const doLogOut = () => {
   return dispatch => {
     var headers = new Headers();
 
-    return fetch('http://localhost:3000/api/logout', {
+    return fetch('http://localhost/api/logout', {
       method: 'get',
       credentials: 'same-origin',
       headers
@@ -107,7 +107,7 @@ export const doLogIn = (email, password) => {
 
     var formData = 'username=' + email +'&password=' + password;
 
-    return fetch('http://localhost:3000/api/', {
+    return fetch('http://localhost/api/', {
       method: 'post',
       credentials: 'same-origin',
       headers,
@@ -143,7 +143,7 @@ export const registerUser = (email, password, givenname, surname) => {
       surname
     });
 
-    return fetch('http://localhost:3000/api/user/create', {
+    return fetch('http://localhost/api/user/create', {
       method: 'post',
       credentials: 'same-origin',
       headers,
@@ -170,7 +170,7 @@ export const getUserDetails = () => {
     var headers = new Headers();
     headers.append('Content-Type', 'application/json');
 
-    fetch('http://localhost:3000/api/user/details', {
+    fetch('http://localhost/api/user/details', {
       method: 'get',
       credentials: 'same-origin',
       headers
