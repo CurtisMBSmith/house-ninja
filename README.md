@@ -27,5 +27,10 @@ An application for household meal planning and inventory tracking.
 3. Edit the DBA user password in the init.sql file
 4. Copy the file backend/conf/properties/pgdb.properties.template to pgdb.properties in the same directory
 5. Edit the pgpass property to match the password that you specified in the init.sql file
-6. Execute docker-compose up
-7. Your server should now be running on localhost:80
+6. Navigate to the frontend directory
+7. Execute: npm install
+8. Execute: webpack
+9. Navigate back to the project root
+10. Execute docker-compose up
+11. Your server should now be running on localhost:80
+
